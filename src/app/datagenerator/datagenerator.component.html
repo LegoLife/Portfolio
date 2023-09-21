@@ -1,0 +1,70 @@
+<app-project-nav></app-project-nav>
+
+<h1 class="container-center  ">Sample Data Generator  </h1>
+<h3 class="container-center  ">(Currently supports {{options.length}} types of data)</h3>
+
+<h4 *ngIf="error" class="error container-center">Select data type and change title</h4>
+
+<div class="container-center">
+<div *ngIf="dataList.length>0"  style="display:block;max-width: 40rem">
+  <div  class="container-center"  *ngFor="let item of dataList" >
+   <div class="card">
+     <div class="card-header" >
+       <p>Title: {{item.title}} | Type: {{item.dataType}}</p>
+     </div>
+   </div>
+    <button class="ml-5 btn btn-warning" (click)="Remove(item)">Remove</button>
+  </div>
+</div>
+</div>
+
+<div class="container-center">
+  <div class="container-center input-boxes" >
+    <label class="form-label">Title: </label>
+    <input   class="form-control" type="text" [(ngModel)]="workingDataRow.title" />
+  </div>
+
+  <div class="container-center input-boxes">
+    <label class="form-label">Type of Data: </label>
+    <select class='form-control select-option' required [(ngModel)]='workingDataRow.dataType' >
+      <option  *ngFor="let option of options" class='option' [value]="option">{{option}}</option>
+    </select>
+  </div>
+</div>
+
+
+<div class="container-center pt-2">
+  <button  class="btn btn-primary" (click)="addRow()">Add Row</button>
+  <button  class="btn btn-primary" (click)="generate()">Generate Rows (max:99): </button>
+  <input class="form-control" style="max-width: 65px" type="number" max="99" [(ngModel)]="numObjects" />
+
+
+  <select style="max-width: 7em ;max-height: 2.5em" class='form-control select-option' required [(ngModel)]='selectedOutputType' >
+
+    <option  *ngFor="let option of outputTypes" class='option' [value]="option">{{option}}</option>
+  </select>
+</div>
+
+<div class="container-center">
+
+</div>
+
+
+<div class="container-center">
+  <div  *ngIf="generateFinalData">
+    <button class="btn btn-secondary" [cdkCopyToClipboard]="finalData">Copy Output</button>
+    <a class="btn btn-secondary" [href]="fileUrl" (click)="download()" download="sample.txt">Download</a>
+
+
+  </div>
+</div>
+
+
+
+<div *ngIf="generateFinalData" class="container-center">
+  <pre>
+    <textarea class="form-control" cols="50" rows="50" [(ngModel)]="finalData">
+    </textarea>
+ </pre>
+
+</div>

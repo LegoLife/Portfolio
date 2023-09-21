@@ -1,0 +1,35 @@
+<app-project-nav></app-project-nav>
+<div class="calculator-container mt-3">
+  <h2 >Calculator</h2>
+  <div class="calculator">
+
+    <div class="display">
+      <input type="text" [(ngModel)]="input" readonly />
+    </div>
+    <div class="buttons">
+      <button (click)="handleClick('1')">1</button>
+      <button (click)="handleClick('2')">2</button>
+      <button (click)="handleClick('3')">3</button>
+      <button (click)="handleClick('C')">C</button>
+
+      <button (click)="handleClick('4')">4</button>
+      <button (click)="handleClick('5')">5</button>
+      <button (click)="handleClick('6')">6</button>
+      <button (click)="handleClick('-')">-</button>
+
+      <button (click)="handleClick('7')">7</button>
+      <button (click)="handleClick('8')">8</button>
+      <button (click)="handleClick('9')">9</button>
+      <button (click)="handleClick('*')">*</button>
+
+      <button (click)="handleClick('0')">0</button>
+      <button (click)="handleClick('+')">+</button>
+      <button (click)="handleClick('=')">=</button>
+      <button (click)="handleClick('/')">/</button>
+    </div>
+    <div class="result">
+      {{ result }}
+    </div>
+  </div>
+
+</div>

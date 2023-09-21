@@ -1,0 +1,8 @@
+.input-boxes{
+  display: inline-block;
+  max-width: 200px;
+}
+
+.error{
+  color:red;
+}

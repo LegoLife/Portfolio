@@ -1,0 +1,26 @@
+a{
+  font-size: 12pt;
+}
+
+
+.project-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.project-card a{
+  color: white;
+}
+
+.project-card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 16px;
+  max-width: 300px;
+  background-color: #35424a;
+  /*background-color: lightslategray;*/
+}
+
+.project-card img {
+  max-width: 100%;
+}

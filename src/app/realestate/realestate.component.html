@@ -1,0 +1,72 @@
+<app-project-nav></app-project-nav>
+
+<div class="container">
+<h1 class="text-center">Real Estate Listings</h1>
+
+<div class="filter-bar  container-center">
+  <div class="card filter-card" >
+    <div class="card-header">Price</div>
+    <div class="card-body">
+      <label class="form-label">Min: </label>
+      <input class="form-control" type="number" [(ngModel)]="priceFilterMin" (ngModelChange)="filterChanged()">
+      <label class="form-label">Max: </label>
+      <input class="form-control"  type="number" [(ngModel)]="priceFilterMax" (ngModelChange)="filterChanged()">
+    </div>
+  </div>
+
+  <div class="card filter-card" >
+    <div class="card-header">Bathrooms</div>
+    <div class="card-body">
+      <label class="form-label">Min: </label>
+      <input class="form-control" type="number" [(ngModel)]="bathroomFilterMin" (ngModelChange)="filterChanged()">
+      <label class="form-label">Max: </label>
+      <input class="form-control"  type="number" [(ngModel)]="bathroomFilterMax" (ngModelChange)="filterChanged()">
+    </div>
+  </div>
+
+
+  <div class="card filter-card" >
+    <div class="card-header">Bedrooms</div>
+    <div class="card-body">
+      <label class="form-label">Min: </label>
+      <input class="form-control" type="number" [(ngModel)]="bedroomFilterMin" (ngModelChange)="filterChanged()">
+      <label class="form-label">Max: </label>
+      <input class="form-control"  type="number" [(ngModel)]="bedroomFilterMax" (ngModelChange)="filterChanged()">
+    </div>
+  </div>
+
+
+  <div class="card filter-card" style="max-height: 9em">
+    <div class="card-header">Keyword Search</div>
+    <div class="card-body">
+      <input placeholder="search..."  class="form-control" type="text" [(ngModel)]="searchFilter" (ngModelChange)="filterChanged()">
+
+    </div>
+    <button class="mt-auto btn btn-secondary" (click)="ResetFilters()">Clear Filters</button>
+    <button class="mt-auto btn btn-outline-primary" (click)="Refresh()">Refresh Data</button>
+  </div>
+
+</div>
+
+
+<p style="text-align: center" class="pt-3"> Displaying {{filteredHomeDataArr.length}} Results</p>
+
+<div class="real-estate-list ">
+  <div *ngFor="let property of filteredHomeDataArr" class="property-card">
+
+    <img alt="home{{property.id}}" src="{{property.PhotoPath}}">
+
+    <h2>{{property.Street}}</h2>
+    <hr>
+    <p>Price: {{property.Price| currency}}</p>
+    <p>State: {{property.State}}</p>
+    <p>Square Ft: {{property.SquareFt|number}}</p>
+    <p>Bathrooms: {{property.BathRooms}}</p>
+    <p>BedRooms: {{property.BedRooms}}</p>
+
+    <p>Date Listed: {{property.DatePosted|date}}</p>
+    <p>Days on Site: {{property.Age}}</p>
+
+  </div>
+</div>
+</div>

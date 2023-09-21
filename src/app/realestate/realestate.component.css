@@ -1,0 +1,28 @@
+﻿.real-estate-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.property-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+  padding: 16px;
+  margin: 5px;
+    max-width: 300px;
+}
+
+.property-card img {
+  max-width: 100%;
+}
+
+.filter-card{
+  /*width: 200px;*/
+}
+
+.filter-bar{
+  display:flex;
+
+}

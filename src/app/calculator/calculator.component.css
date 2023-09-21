@@ -1,0 +1,102 @@
+.calculator {
+  max-width: 300px;
+  max-height: 25em;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color:#fff;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-container {
+  /*display: flex;*/
+  justify-content: center;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.display input {
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  padding: 10px;
+  font-size: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+
+.result {
+  margin-top: 10px;
+  font-size: 24px;
+  text-align: center;
+}
+
+
+
+
+/* Style the heading */
+h2 {
+  display: block;
+    font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  white-space: pre;
+}
+
+/*!* Style the labels for input fields *!*/
+/*label {*/
+/*  display: block;*/
+/*  margin-bottom: 5px;*/
+/*  font-weight: bold;*/
+/*}*/
+
+/*!* Style the input fields *!*/
+/*input[type="number"] {*/
+/*  width: 100%;*/
+/*  padding: 10px;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 5px;*/
+/*  margin-bottom: 15px;*/
+/*}*/
+
+/*!* Style the Calculate button *!*/
+/*button {*/
+/*  display: block;*/
+/*  width: 100%;*/
+/*  padding: 10px;*/
+/*  background-color: #007bff;*/
+/*  color: #fff;*/
+/*  border: none;*/
+/*  border-radius: 5px;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*button:hover {*/
+/*  background-color: #0056b3;*/
+/*}*/
+
+/*!* Style the monthly payment display *!*/
+/*p {*/
+/*  font-size: 18px;*/
+/*  font-weight: bold;*/
+/*  margin-top: 15px;*/
+/*  text-align: center;*/
+/*}*/
+
