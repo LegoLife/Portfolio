@@ -5,7 +5,6 @@ import {RealestateComponent} from "./realestate/realestate.component";
 import {CalculatorComponent} from "./calculator/calculator.component";
 import {HomeComponent} from "./home/home.component";
 import {ResumeComponent} from "./resume/resume.component";
-import {ContactComponent} from "./contact/contact.component";
 import {MortgagecalcComponent} from "./mortgagecalc/mortgagecalc.component";
 import {DatageneratorComponent} from "./datagenerator/datagenerator.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
@@ -18,7 +17,6 @@ const routes: Routes = [
   {path:"realestate", component: RealestateComponent},
   {path:"calculator",component:CalculatorComponent},
   {path:"resume",component:ResumeComponent},
-  {path:"contact",component:ContactComponent},
   {path:"mortgagecalc",component:MortgagecalcComponent},
   {path:"datagenerator",component:DatageneratorComponent},
   {path:"dashboard",component:DashboardComponent},

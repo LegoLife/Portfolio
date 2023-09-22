@@ -10,7 +10,6 @@ import {ProjectsComponent} from './projects/projects.component';
 import {HomeComponent} from './home/home.component';
 import {FormsModule} from '@angular/forms';
 import {ResumeComponent} from './resume/resume.component';
-import {ContactComponent} from './contact/contact.component';
 import {MortgagecalcComponent} from './mortgagecalc/mortgagecalc.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSliderModule} from "@angular/material/slider";
@@ -36,7 +35,6 @@ import { HttpClientModule } from '@angular/common/http';
     ProjectsComponent,
     HomeComponent,
     ResumeComponent,
-    ContactComponent,
     MortgagecalcComponent,
     DatageneratorComponent,
     DashboardComponent,

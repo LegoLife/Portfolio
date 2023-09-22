@@ -3,4 +3,21 @@
   justify-content: center;
 }
 
+.footer-link
+{
+  padding-right:2em;
+  /*font-size: 25px;*/
+}
+
+.my-content{
+  padding-bottom: 120px !important;
+}
+footer {
+  position: fixed !important;;
+  right: 0 !important;;
+  left: 0 !important;;
+  bottom: 0 !important;;
+  width: 100% !important;;
+  height: 60px !important;;
+}
 

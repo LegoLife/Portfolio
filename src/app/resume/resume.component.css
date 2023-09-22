@@ -1,9 +1,4 @@
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f8f8;
-  margin: 0;
-  padding: 0;
-}
+
 header {
   background-color: #35424a;
   color: white;
@@ -49,7 +44,3 @@ ul {
   color: white;
   border-radius: 5px;
 }
-
-/*.download-button:hover {*/
-/*  background-color: #1a2730;*/
-/*}*/
