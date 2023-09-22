@@ -9,6 +9,7 @@ import {ContactComponent} from "./contact/contact.component";
 import {MortgagecalcComponent} from "./mortgagecalc/mortgagecalc.component";
 import {DatageneratorComponent} from "./datagenerator/datagenerator.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {MarvelbrowserComponent} from "./marvelbrowser/marvelbrowser.component";
 
 const routes: Routes = [
   {path:"", component: HomeComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:"contact",component:ContactComponent},
   {path:"mortgagecalc",component:MortgagecalcComponent},
   {path:"datagenerator",component:DatageneratorComponent},
-  {path:"dashboard",component:DashboardComponent}
+  {path:"dashboard",component:DashboardComponent},
+  {path:"marvel-browser",component:MarvelbrowserComponent}
 
 ];
 

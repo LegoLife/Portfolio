@@ -26,8 +26,8 @@ export class CalculatorComponent {
     if (value === '=') {
       try {
         // Use the eval function to calculate the result
-        this.result = eval(this.input);
-        //this.input=this.result;
+        //this.result = eval(this.input);
+        this.input=eval(this.input);
       } catch (error) {
         this.result = 'Error';
       }

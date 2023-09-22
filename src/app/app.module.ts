@@ -22,6 +22,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
 import {DataTablesModule} from "angular-datatables";
 import { ProjectNavComponent } from './project-nav/project-nav.component';
+import { MarvelbrowserComponent } from './marvelbrowser/marvelbrowser.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { ProjectNavComponent } from './project-nav/project-nav.component';
     MortgagecalcComponent,
     DatageneratorComponent,
     DashboardComponent,
-    ProjectNavComponent
+    ProjectNavComponent,
+    MarvelbrowserComponent
   ],
   imports: [
 
@@ -51,7 +54,8 @@ import { ProjectNavComponent } from './project-nav/project-nav.component';
     MatInputModule,
     ClipboardModule,
     NgChartsModule,
-    DataTablesModule
+    DataTablesModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

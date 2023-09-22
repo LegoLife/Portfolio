@@ -1,0 +1,37 @@
+<app-project-nav></app-project-nav>
+
+<div class="container-center">
+<h1>Marvel Heros</h1>
+</div>
+
+
+<div class="filter-bar  container-center">
+
+  <div class="card filter-card" >
+    <div class="card-header">Search</div>
+    <div class="card-body">
+      <input class="form-control" type="text" [(ngModel)]="searchFilter" (ngModelChange)="filterChanged()">
+     </div>
+  </div>
+
+  <div class=" filter-card">
+    <button class="form-control" (click)="pickRandom()">Pick Random</button>
+    <button class="form-control" (click)="clearFilters()">Clear Filters</button>
+  </div>
+</div>
+
+<div class="container-center">
+  <p>Displaying {{filterData.length}} Results</p>
+
+</div>
+
+<div class="hero-list">
+  <div *ngFor="let character of filterData" class="hero-card">
+    <h4>{{character.name}}</h4>
+    <img  src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}">
+
+    <hr>
+    <p>{{character.description}}</p>
+
+  </div>
+</div>

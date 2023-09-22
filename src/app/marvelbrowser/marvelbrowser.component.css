@@ -1,0 +1,28 @@
+.hero-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.hero-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+  padding: 16px;
+  margin: 5px;
+  max-width: 300px;
+}
+
+.hero-card img {
+  max-width: 100%;
+}
+
+.filter-card{
+  /*width: 200px;*/
+}
+
+.filter-bar{
+  display:flex;
+
+}
