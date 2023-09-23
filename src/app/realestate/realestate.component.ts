@@ -11,7 +11,7 @@ import Enumerable from 'linq'
   styleUrls: ['./realestate.component.css']
 })
 export class RealestateComponent implements OnInit {
-  homeDataArr:HomeData[] = [];
+   homeDataArr:HomeData[] = [];
   filteredHomeDataArr:HomeData[] = [];
   priceFilterMin:number=100000;
   priceFilterMax:number=1000000;
@@ -20,15 +20,19 @@ export class RealestateComponent implements OnInit {
   bathroomFilterMax: number=5;
   bedroomFilterMin: number=1;
   bedroomFilterMax: number=3;
+  // badgeTypes: string[]=["trending","new","priceDrop"];
+  trending: boolean = false;
+  priceDropped: boolean = false;
+  recentlyAdded: boolean=false;
   ngOnInit(): void {
        this.InitData();
       this.filteredHomeDataArr = this.homeDataArr;
   }
   InitData() {
-    if(this.homeDataArr.length>0){
-      this.homeDataArr=[];
+
+    if(this.filteredHomeDataArr.length > 0){
       this.filteredHomeDataArr=[];
-      this.filteredHomeDataArr = this.homeDataArr;
+      this.homeDataArr=[];
     }
 
     for (var i = 0; i < 25; i++) {
@@ -53,6 +57,11 @@ export class RealestateComponent implements OnInit {
         d.SquareFt= faker.number.int( {min: 500, max: 5500}).toString();
         d.Age = this.dateDiffInDays(new Date(d.DatePosted)).toString();
 
+        d.New = faker.helpers.arrayElement([true,false]);
+        d.PriceDrop = faker.helpers.arrayElement([true,false]);
+        d.Trending = faker.helpers.arrayElement([true,false]);
+
+
       this.homeDataArr.push(d);
     }
 
@@ -64,19 +73,40 @@ export class RealestateComponent implements OnInit {
   }
 
   filterChanged() {
+  this.filteredHomeDataArr = [];
 
+    if(this.recentlyAdded==false && this.trending==false && this.priceDropped==false){
+      this.filteredHomeDataArr  = Enumerable.from(this.homeDataArr)
 
-
-      this.filteredHomeDataArr = Enumerable.from(this.homeDataArr)
         .where(x=>x.Price >= this.priceFilterMin && x.Price <= this.priceFilterMax)
         .where(x=>x.BathRooms >=this.bathroomFilterMin && x.BathRooms <= this.bathroomFilterMax)
         .where(x=> x.BedRooms >= this.bedroomFilterMin && x.BedRooms <= this.bedroomFilterMax)
         .where(x=>x.Street.toLowerCase().includes(this.searchFilter.toLowerCase())
-        || x.State.toLowerCase().includes(this.searchFilter.toLowerCase())
-        || x.City.toLowerCase().includes(this.searchFilter.toLowerCase()))
+          || x.State.toLowerCase().includes(this.searchFilter.toLowerCase())
+          || x.City.toLowerCase().includes(this.searchFilter.toLowerCase()))
         .toArray()
+    }else{
+      this.filteredHomeDataArr  = Enumerable.from(this.homeDataArr)
+        .where(x=>x.PriceDrop==this.priceDropped)
+        .where(x=>x.New==this.recentlyAdded)
+        .where(x=>x.Trending==this.trending)
+        .where(x=>x.Price >= this.priceFilterMin && x.Price <= this.priceFilterMax)
+        .where(x=>x.BathRooms >=this.bathroomFilterMin && x.BathRooms <= this.bathroomFilterMax)
+        .where(x=> x.BedRooms >= this.bedroomFilterMin && x.BedRooms <= this.bedroomFilterMax)
+        .where(x=>x.Street.toLowerCase().includes(this.searchFilter.toLowerCase())
+          || x.State.toLowerCase().includes(this.searchFilter.toLowerCase())
+          || x.City.toLowerCase().includes(this.searchFilter.toLowerCase()))
+        .toArray()
+    }
+
+
+
+
+
 
   }
+
+
 
   dateDiffInDays( b:Date) {
     var a = new Date();
@@ -94,7 +124,11 @@ export class RealestateComponent implements OnInit {
     this.searchFilter="";
     this.bathroomFilterMin=0;
     this.bathroomFilterMax=5;
+    this.trending=false;
+    this.priceDropped=false;
+    this.recentlyAdded=false;
     this.filterChanged();
+
   }
 }
  class HomeData
@@ -115,6 +149,9 @@ export class RealestateComponent implements OnInit {
       public Age: string ="";
       public BedRooms: number=0;
 
-}
+     public Trending:boolean=false;
+     public New:boolean=false;
+     public PriceDrop:boolean=false;
 
+}
 

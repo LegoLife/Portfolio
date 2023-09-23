@@ -31,6 +31,7 @@ export class MarvelbrowserComponent implements  OnInit{
       .toArray();
   }
   pickRandom() {
+    this.searchFilter = "";
     this.filterData = [];
     this.filterData.push(faker.helpers.arrayElement(this.characterData));
   }
@@ -46,7 +47,9 @@ export class MarvelbrowserComponent implements  OnInit{
   }
 
   clearFilters() {
+    this.searchFilter = "";
     this.fetch();
+
   }
 }
 

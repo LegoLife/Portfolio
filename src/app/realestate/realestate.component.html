@@ -35,6 +35,19 @@
       </div>
     </div>
 
+    <div class="card filter-card" >
+      <div class="card-header">More Options</div>
+      <div class="card-body">
+        <label class="form-label">Trending</label>
+        <input class="form-control form-check-input" type="checkbox" [(ngModel)]="trending" (ngModelChange)="filterChanged()" >
+        <label class="form-label">Price Dropped</label>
+        <input class="form-control form-check-input"  type="checkbox" [(ngModel)]="priceDropped" (ngModelChange)="filterChanged()">
+
+        <label class="form-label">Recently Added</label>
+        <input class="form-control form-check-input"  type="checkbox" [(ngModel)]="recentlyAdded" (ngModelChange)="filterChanged()">
+      </div>
+    </div>
+
 
     <div class="card filter-card" style="max-height: 9em">
       <div class="card-header">Keyword Search</div>
@@ -55,8 +68,12 @@
     <div *ngFor="let property of filteredHomeDataArr" class="property-card">
 
       <img alt="home{{property.id}}" src="{{property.PhotoPath}}">
+      <span *ngIf="property.Trending" class="badge bg-danger">Trending <i class="fa-solid fa-fire"></i></span>
+      <span *ngIf="property.PriceDrop" class="badge badge-outline  bg-secondary">Price Drop  <i class="fa-solid fa-arrow-down"></i></span>
+      <span *ngIf="property.New" class="badge badge-outline  bg-success">New Listing  <i class="fa-solid fa-house"></i></span>
 
-      <h2>{{property.Street}}</h2>
+
+      <h2>{{property.Street}} </h2>
       <hr>
       <p>Price: {{property.Price| currency}}</p>
       <p>State: {{property.State}}</p>
