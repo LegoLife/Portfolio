@@ -20,7 +20,6 @@ export class RealestateComponent implements OnInit {
   bathroomFilterMax: number=5;
   bedroomFilterMin: number=1;
   bedroomFilterMax: number=3;
-  // badgeTypes: string[]=["trending","new","priceDrop"];
   trending: boolean = false;
   priceDropped: boolean = false;
   recentlyAdded: boolean=false;
@@ -111,7 +110,7 @@ export class RealestateComponent implements OnInit {
   dateDiffInDays( b:Date) {
     var a = new Date();
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-    // Discard the time and time-zone information.
+
     const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
     const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
 

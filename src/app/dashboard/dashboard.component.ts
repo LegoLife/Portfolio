@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit{
 
   }
   generateGuid() : string {
-    //'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
     return 'xxxxxxxx-xxxx-4xxx-yxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0,
         v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -49,9 +48,9 @@ export class DashboardComponent implements OnInit{
   }
   createCharts(){
     this.barchart = new Chart("MyBarChart", {
-      type: 'bar', //this denotes tha type of chart
+      type: 'bar',
 
-      data: {// values on X-Axis
+      data: {
         labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
           '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
         datasets: this.getbarchartData()
@@ -63,9 +62,9 @@ export class DashboardComponent implements OnInit{
     });
 
     this.linechart = new Chart("MyLineChart", {
-      type: 'line', //this denotes tha type of chart
+      type: 'line',
 
-      data: {// values on X-Axis
+      data: {
         labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
           '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
         datasets: this.getlinechartData()
@@ -88,8 +87,8 @@ export class DashboardComponent implements OnInit{
     return [
       {
         label: "Sales",
-        // data: ['467','576', '572', '79', '92',
-        //   '574', '573', '576'],
+
+
         data: Enumerable.range(8,8)
           .select(x=> faker.helpers.arrayElement(salesRange).toString()).toArray(),
         backgroundColor: '#004BA8'

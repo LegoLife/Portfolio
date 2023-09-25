@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import Enumerable from "linq";
 import {filter} from "rxjs";
 import {faker} from "@faker-js/faker";
+import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-marvelbrowser',
@@ -14,11 +15,18 @@ export class MarvelbrowserComponent implements  OnInit{
     filterData:Character[]=[];
     url: string = '/assets/characters.json';
   searchFilter: string="";
-  constructor(private http: HttpClient) {
+  selectedCharacter:Character=<Character>{};
+
+  @ViewChild('content')
+  private content: TemplateRef<any> | undefined;
+  private closeResult: string="";
+
+  constructor(private http: HttpClient,private modalService: NgbModal) {
 
   }
   ngOnInit(): void {
-    this.fetch()
+    this.fetch();
+
 
   }
 
@@ -38,11 +46,12 @@ export class MarvelbrowserComponent implements  OnInit{
 
   private fetch() {
     this.http.get<Character[]>(this.url).subscribe((res) => {
-      this.characterData = Enumerable.from(res).where(x=>x.description.length>0)
+      this.characterData = Enumerable.from(res).where(x=>x.description.length>0 &&
+        !x.thumbnail.path.includes("image_not_available"))
         .orderBy(x=>x.name)
         .toArray();
       this.filterData = this.characterData;
-
+      console.log(this.characterData);
     });
   }
 
@@ -50,6 +59,26 @@ export class MarvelbrowserComponent implements  OnInit{
     this.searchFilter = "";
     this.fetch();
 
+  }
+
+  cardClicked(character: Character) {
+    this.selectedCharacter=character;
+    this.modalService.open(this.content,
+      { ariaLabelledBy: 'modal-basic-title', size: "lg",backdrop:true, keyboard:true})
+      .result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }
 

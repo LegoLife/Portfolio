@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-//import {MatSliderModule} from '@angular/material/slider';
+
 
 @Component({
   selector: 'app-mortgagecalc',
@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./mortgagecalc.component.css']
 })
 export class MortgagecalcComponent {
-  loanAmount: number = 200000; // Initial loan amount
-  interestRate: number = 4.5; // Annual interest rate (as a percentage)
-  loanTerm: number = 30; // Loan term in years
+  loanAmount: number = 200000;
+  interestRate: number = 4.5;
+  loanTerm: number = 30;
   monthlyPayment: number=0;
 
   calculateMonthlyPayment() {
@@ -21,7 +21,7 @@ export class MortgagecalcComponent {
 
 
   formatLoanAmount() {
-    // Remove commas and reformat the loanAmount
+
     this.loanAmount = parseFloat(this.loanAmount.toString().replace(/,/g, ''));
   }
 }

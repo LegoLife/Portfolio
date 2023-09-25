@@ -25,18 +25,15 @@ export class CalculatorComponent {
   handleClick(value: string) {
     if (value === '=') {
       try {
-        // Use the eval function to calculate the result
         //this.result = eval(this.input);
         this.input=eval(this.input);
       } catch (error) {
         this.result = 'Error';
       }
     } else if (value === 'C') {
-      // Clear the input and result
       this.input = '';
       this.result = '';
     } else {
-      // Append the clicked button value to the input
       this.input += value;
     }
   }

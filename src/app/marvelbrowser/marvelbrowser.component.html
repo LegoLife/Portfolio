@@ -28,13 +28,50 @@
 </div>
 
 <div class="hero-list">
-  <div *ngFor="let character of filterData" class="hero-card">
+  <div *ngFor="let character of filterData" class="hero-card" (click)="cardClicked(character)">
     <h4>{{character.name}}</h4>
-    <img  src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}">
+    <img alt="{{character.name}}"  src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}">
 
     <hr>
     <p>{{character.description}}</p>
 
   </div>
 </div>
+
+
+
+<ng-template #content let-modal >
+  <div class="modal-header modal-xl" >
+    <h4 class="modal-title ">{{selectedCharacter.name}}</h4>
+
+    <button (click)="modal.dismiss('Cross click')" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+        <div class="modal-body">
+
+          <div class="container-center">
+            <img class="hero-card" src="{{selectedCharacter.thumbnail.path}}.{{selectedCharacter.thumbnail.extension}}" alt="">
+          </div>
+          <hr>
+          <div class="container-center">
+            <p>{{selectedCharacter.description}}</p>
+          </div>
+
+          <hr>
+          <div *ngIf="selectedCharacter.comics.items.length>0">
+            <div class="container-center"> <p>Appears In</p></div>
+            <div class="container-center">
+              <ol>
+                <li *ngFor="let i of selectedCharacter.comics.items">{{i.name}}</li>
+              </ol>
+            </div>
+          </div>
+
+      </div>
+
+</ng-template>
+
 
