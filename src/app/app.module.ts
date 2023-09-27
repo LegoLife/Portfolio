@@ -27,7 +27,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-
     AppComponent,
     NavbarComponent,
     CalculatorComponent,
@@ -42,7 +41,6 @@ import { HttpClientModule } from '@angular/common/http';
     MarvelbrowserComponent
   ],
   imports: [
-
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -59,6 +57,3 @@ import { HttpClientModule } from '@angular/common/http';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-
-

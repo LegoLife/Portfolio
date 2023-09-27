@@ -1,7 +1,6 @@
 <app-project-nav></app-project-nav>
 
-<div class="  ">
-  <h1 class="text-center">Real Estate Listings</h1>
+ <h1 class="text-center">Real Estate Listings</h1>
 
   <div class="filter-bar  container-center">
     <div class="card filter-card" >
@@ -53,7 +52,6 @@
       <div class="card-header">Keyword Search</div>
       <div class="card-body">
         <input placeholder="search..."  class="form-control" type="text" [(ngModel)]="searchFilter" (ngModelChange)="filterChanged()">
-
       </div>
       <button class="mt-auto btn btn-secondary" (click)="ResetFilters()">Clear Filters</button>
       <button class="mt-auto btn btn-outline-primary" (click)="Refresh()">Refresh Data</button>
@@ -72,7 +70,6 @@
       <span *ngIf="property.PriceDrop" class="badge badge-outline  bg-secondary">Price Drop  <i class="fa-solid fa-arrow-down"></i></span>
       <span *ngIf="property.New" class="badge badge-outline  bg-success">New Listing  <i class="fa-solid fa-house"></i></span>
 
-
       <h2>{{property.Street}} </h2>
       <hr>
       <p>Price: {{property.Price| currency}}</p>
@@ -83,7 +80,5 @@
 
       <p>Date Listed: {{property.DatePosted|date}}</p>
       <p>Days on Site: {{property.Age}}</p>
-
     </div>
   </div>
-</div>

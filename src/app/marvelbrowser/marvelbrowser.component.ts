@@ -26,8 +26,6 @@ export class MarvelbrowserComponent implements  OnInit{
   }
   ngOnInit(): void {
     this.fetch();
-
-
   }
 
   filterChanged() {
@@ -35,7 +33,6 @@ export class MarvelbrowserComponent implements  OnInit{
     this.filterData = Enumerable.from(this.characterData)
       .where(x=>x.name.toLowerCase().includes(filterLower)
       ||x.description.toLowerCase().includes(filterLower))
-
       .toArray();
   }
   pickRandom() {
@@ -51,7 +48,6 @@ export class MarvelbrowserComponent implements  OnInit{
         .orderBy(x=>x.name)
         .toArray();
       this.filterData = this.characterData;
-      console.log(this.characterData);
     });
   }
 
@@ -155,6 +151,3 @@ export interface Url {
   type: string
   url: string
 }
-
-
-

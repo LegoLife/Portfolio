@@ -1,4 +1,3 @@
-/* Style the container for the mortgage calculator */
 .mortgage-calculator {
   background-color: #f4f4f4;
   padding: 20px;
@@ -9,14 +8,12 @@
   margin: 0 auto;
 }
 
-/* Style the heading */
 h2 {
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
 }
 
-/* Style the labels for input fields */
 label {
   display: block;
   font-size: 15px;
@@ -24,7 +21,6 @@ label {
   font-weight: lighter;
 }
 
-/* Style the input fields */
 input[type="number"] {
   width: 100%;
   padding: 10px;
@@ -33,7 +29,6 @@ input[type="number"] {
   margin-bottom: 15px;
 }
 
-/* Style the Calculate button */
 button {
   display: block;
   width: 100%;
@@ -49,7 +44,6 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Style the monthly payment display */
 p {
   font-size: 18px;
   font-weight: bold;

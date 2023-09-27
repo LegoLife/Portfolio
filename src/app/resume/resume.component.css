@@ -5,17 +5,15 @@ header {
   text-align: center;
   padding: 10px 0;
 }
-.container {
+.resume-container {
   max-width: 800px;
   margin: 20px auto;
   background-color: white;
   padding: 30px;
   border-radius: 10px;
-  /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;}
 h1 {
   color:white;
-  /*color: #35424a;*/
 }
 h2 {
   color: #35424a;

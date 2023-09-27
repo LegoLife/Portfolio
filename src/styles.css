@@ -1,13 +1,10 @@
+body{
+  overflow-y: scroll !important;
+}
 .container-center {
   display: flex;
   justify-content: center;
 }
-
-/*.footer-link*/
-/*{*/
-/*  padding-right:2em;*/
-/*  !*font-size: 25px;*!*/
-/*}*/
 
 .my-content{
   padding-bottom: 120px !important;

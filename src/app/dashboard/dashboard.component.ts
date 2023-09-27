@@ -16,9 +16,6 @@ export class DashboardComponent implements OnInit{
   ngOnInit(): void {
     this.createCharts();
     this.createOrderData();
-
-
-
   }
 
   createOrderData() {
@@ -30,11 +27,9 @@ export class DashboardComponent implements OnInit{
         o.price=faker.commerce.price();
         o.quantity = faker.number.int({min:50,max:50000});
         o.orderNum = this.generateGuid();
-
         o.Total = o.quantity*parseInt(o.price);
 
         this.orderData.push(o);
-
       })
 
 
@@ -49,7 +44,6 @@ export class DashboardComponent implements OnInit{
   createCharts(){
     this.barchart = new Chart("MyBarChart", {
       type: 'bar',
-
       data: {
         labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
           '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
@@ -63,7 +57,6 @@ export class DashboardComponent implements OnInit{
 
     this.linechart = new Chart("MyLineChart", {
       type: 'line',
-
       data: {
         labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
           '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
@@ -72,23 +65,16 @@ export class DashboardComponent implements OnInit{
       options: {
         aspectRatio:2.5
       }
-
     });
-
   }
-
-
 
    getbarchartData() {
     var salesRange = Enumerable.range(70,700).toArray();
      var profitRange = Enumerable.range(0,700).toArray();
 
-
     return [
       {
         label: "Sales",
-
-
         data: Enumerable.range(8,8)
           .select(x=> faker.helpers.arrayElement(salesRange).toString()).toArray(),
         backgroundColor: '#004BA8'
@@ -97,13 +83,7 @@ export class DashboardComponent implements OnInit{
         label: "Profit",
         data: Enumerable.range(8,8)
           .select(x=> faker.helpers.arrayElement(profitRange).toString()).toArray(),
-
         backgroundColor: '#4A525A'
-        /*#3E78B2*/
-        /*#004BA8*/
-        /*#4A525A*/
-        /*#24272B*/
-        /*#07070A*/
       }
     ]
   }
@@ -118,8 +98,6 @@ export class DashboardComponent implements OnInit{
       tension: 0.1
     }]
   }
-
-
 }
 
  class Order
@@ -136,4 +114,3 @@ class Customer
   public FirstName:string="";
   public LastName:string="";
 }
-

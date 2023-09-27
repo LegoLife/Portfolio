@@ -23,7 +23,6 @@ export class DatageneratorComponent implements OnInit  {
     var add = ["firstName","lastName","age","zipCode",
       "city","state","country","streetAddress","recentDate","birthdate","futureDate","catBreed","dogBreed","cowBreed","bearBreed","birdBreed"];
     add.forEach(x=> this.options.push(x));
-
   }
 
   getSampleData(t:any):any{
@@ -60,7 +59,6 @@ export class DatageneratorComponent implements OnInit  {
           return faker.person.lastName();
       case "age":
           return faker.number.int({min:1,max:99});
-
     }
   }
 
@@ -88,9 +86,7 @@ export class DatageneratorComponent implements OnInit  {
         newList.push(x);
       }
     })
-
     this.dataList = newList;
-
   }
 
   generate() {
@@ -105,14 +101,9 @@ export class DatageneratorComponent implements OnInit  {
           this.outputCSharp();
           return;
         }
-
-
     }
-
-
   }
   private outputCSharp() {
-
     var outList = this.getArrayList();
     var props = Object.getOwnPropertyNames(outList[0]);
     var className = "CustomClass"
@@ -121,11 +112,8 @@ export class DatageneratorComponent implements OnInit  {
     props.forEach(x=>{
       classText +=`\n\tpublic string ${x} {get;set;}`
     })
-
     classText += "\n}"
-
     var listText = `var list = new List<${className}>()\n{`;
-
      outList.forEach(x=>{
        listText += `\n\tnew ${className}()\n\t\t{`;
        var propList:string[] = [];
@@ -136,7 +124,6 @@ export class DatageneratorComponent implements OnInit  {
        listText += "\n\t\t}"
      })
     listText += "\n}"
-
 
     this.generateFinalData=true;
     this.finalData = classText+"\n\n"+listText;
@@ -164,23 +151,17 @@ outputJson(){
 }
 
   download() {
-
     const blob = new Blob([this.finalData], { type: 'application/octet-stream' });
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }
-
-
 }
 
 class DataRow
 {
   constructor(dataType:string,title:string) {
-
     this.dataType = dataType;
     this.title = title;
   }
   dataType:string;
   title:string;
-
 }
-

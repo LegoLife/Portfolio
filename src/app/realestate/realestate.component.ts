@@ -35,35 +35,29 @@ export class RealestateComponent implements OnInit {
     }
 
     for (var i = 0; i < 25; i++) {
-
       var photoId = faker.number.int( {min: 0, max: 20});
+      var homeData = new HomeData();
+        homeData.id= i;
+        homeData.City= faker.location.city();
+        homeData.State= faker.location.state();
+        homeData.Zip= faker.location.zipCode();
+        homeData.Street= faker.location.streetAddress();
+        homeData.Owner= faker.person.firstName() + ' ' + faker.person.lastName();
+        homeData.Price= faker.number.int({min:this.priceFilterMin,max:this.priceFilterMax});
+        homeData.DatePosted= faker.date.recent({days:90});
+        homeData.AboutLong= faker.lorem.paragraph();
+        homeData.AboutShort= faker.lorem.sentence();
+        homeData.PhotoPath= "images/home" + photoId + ".jpg";
+        homeData.BathRooms= faker.number.int( {min: this.bathroomFilterMin, max: this.bathroomFilterMax});
+        homeData.BedRooms= faker.number.int( {min: this.bedroomFilterMin, max: this.bedroomFilterMax});
+        homeData.SquareFt= faker.number.int( {min: 500, max: 5500}).toString();
+        homeData.Age = this.dateDiffInDays(new Date(homeData.DatePosted)).toString();
+        homeData.New = faker.helpers.arrayElement([true,false]);
+        homeData.PriceDrop = faker.helpers.arrayElement([true,false]);
+        homeData.Trending = faker.helpers.arrayElement([true,false]);
 
-      var d = new HomeData();
-
-        d.id= i;
-        d.City= faker.location.city();
-        d.State= faker.location.state();
-        d.Zip= faker.location.zipCode();
-        d.Street= faker.location.streetAddress();
-        d.Owner= faker.person.firstName() + ' ' + faker.person.lastName();
-        d.Price= faker.number.int({min:this.priceFilterMin,max:this.priceFilterMax});
-        d.DatePosted= faker.date.recent({days:90});
-        d.AboutLong= faker.lorem.paragraph();
-        d.AboutShort= faker.lorem.sentence();
-        d.PhotoPath= "images/home" + photoId + ".jpg";
-        d.BathRooms= faker.number.int( {min: this.bathroomFilterMin, max: this.bathroomFilterMax});
-        d.BedRooms= faker.number.int( {min: this.bedroomFilterMin, max: this.bedroomFilterMax});
-        d.SquareFt= faker.number.int( {min: 500, max: 5500}).toString();
-        d.Age = this.dateDiffInDays(new Date(d.DatePosted)).toString();
-
-        d.New = faker.helpers.arrayElement([true,false]);
-        d.PriceDrop = faker.helpers.arrayElement([true,false]);
-        d.Trending = faker.helpers.arrayElement([true,false]);
-
-
-      this.homeDataArr.push(d);
+        this.homeDataArr.push(homeData);
     }
-
   }
 
   Refresh(){
@@ -97,24 +91,15 @@ export class RealestateComponent implements OnInit {
           || x.City.toLowerCase().includes(this.searchFilter.toLowerCase()))
         .toArray()
     }
-
-
-
-
-
-
   }
-
-
-
   dateDiffInDays( b:Date) {
     var a = new Date();
-    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const msPerDay = 1000 * 60 * 60 * 24;
 
     const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
     const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
 
-    return Math.floor((utc2 - utc1) / _MS_PER_DAY)*-1;
+    return Math.floor((utc2 - utc1) / msPerDay)*-1;
   }
 
   ResetFilters() {
@@ -127,7 +112,6 @@ export class RealestateComponent implements OnInit {
     this.priceDropped=false;
     this.recentlyAdded=false;
     this.filterChanged();
-
   }
 }
  class HomeData
@@ -147,10 +131,7 @@ export class RealestateComponent implements OnInit {
       public SquareFt: string="";
       public Age: string ="";
       public BedRooms: number=0;
-
-     public Trending:boolean=false;
-     public New:boolean=false;
-     public PriceDrop:boolean=false;
-
+      public Trending:boolean=false;
+      public New:boolean=false;
+      public PriceDrop:boolean=false;
 }
-
