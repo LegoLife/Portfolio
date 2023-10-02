@@ -1,0 +1,21 @@
+<app-project-nav></app-project-nav>
+
+<div class="login-container">
+  <div class="login-box">
+    <h2>Dashboard Login</h2>
+    <p>Any Username or password will work</p>
+    <form>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" [(ngModel)]="userName" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="password" required>
+      </div>
+      <div class="form-group">
+        <button type="submit" (click)="submit()">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

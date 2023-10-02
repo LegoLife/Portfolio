@@ -1,0 +1,66 @@
+<app-project-nav></app-project-nav>
+<div class="dashboard">
+  <div class="sidebar">
+    <ul>
+      <li><p>Hello, {{user}}! </p><hr></li>
+        <li><a routerLink="/dashboard" (click)="UsersClicked()">Users</a></li>
+        <li><a routerLink="/dashboard" (click)="ProductsClicked()">Products</a></li>
+      <li><a routerLink="/dashboard" (click)="OrdersClicked()">Orders</a></li>
+    </ul>
+  </div>
+  <div class="content"  >
+
+  <div *ngIf="homeSelected && !productsSelected && !usersSelected">
+
+        <h1 class="container-center">Dashboard Home</h1>
+
+        <canvas  id="MyBarChart" >{{ barchart }}</canvas>
+
+        <canvas class="pb-2"  id="MyLineChart" >{{ linechart }}</canvas>
+        <hr>
+        <div class="tableData">
+      </div>
+  </div>
+
+    <div *ngIf="productsSelected">
+      <h4 >Products</h4>
+      <div>
+        <table datatable id="productTable" class="table table-bordered table-hover table-responsive">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Brand</th>
+              <th>Desc</th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let i of productData.products">
+              <td>{{i.id}}</td>
+              <td><img src="{{i.thumbnail}}"  height="60" alt="Enlarged Image"></td>
+              <td>{{i.title}}</td>
+              <td>{{i.brand}}</td>
+              <td>{{i.description}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="usersSelected">
+      <h4>Users</h4>
+      <div>
+        <table  [dtOptions]="userDtOptions" datatable id="userTable" class="table table-bordered table-hover"></table>
+      </div>
+    </div>
+
+    <div *ngIf="ordersSelected">
+      <h4>Orders</h4>
+      <table datatable [dtOptions]="ordersDtOptions" id="orderData" class="table table-bordered table-hover"></table>
+
+    </div>
+  </div>
+</div>
+
+

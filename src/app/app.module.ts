@@ -17,12 +17,14 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {DatageneratorComponent} from './datagenerator/datagenerator.component';
 import {ClipboardModule} from "@angular/cdk/clipboard";
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard-login/dashboard/dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
 import {DataTablesModule} from "angular-datatables";
 import { ProjectNavComponent } from './project-nav/project-nav.component';
 import { MarvelbrowserComponent } from './marvelbrowser/marvelbrowser.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardLoginComponent } from './dashboard-login/dashboard-login.component';
+import {NgOptimizedImage} from "@angular/common";
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { HttpClientModule } from '@angular/common/http';
     DatageneratorComponent,
     DashboardComponent,
     ProjectNavComponent,
-    MarvelbrowserComponent
+    MarvelbrowserComponent,
+    DashboardLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { HttpClientModule } from '@angular/common/http';
     ClipboardModule,
     NgChartsModule,
     DataTablesModule,
-    HttpClientModule
+    HttpClientModule,
+    NgOptimizedImage
   ],
   providers: [],
   bootstrap: [AppComponent]

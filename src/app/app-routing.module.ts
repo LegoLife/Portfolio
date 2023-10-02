@@ -7,8 +7,9 @@ import {HomeComponent} from "./home/home.component";
 import {ResumeComponent} from "./resume/resume.component";
 import {MortgagecalcComponent} from "./mortgagecalc/mortgagecalc.component";
 import {DatageneratorComponent} from "./datagenerator/datagenerator.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
+import {DashboardComponent} from "./dashboard-login/dashboard/dashboard.component";
 import {MarvelbrowserComponent} from "./marvelbrowser/marvelbrowser.component";
+import {DashboardLoginComponent} from "./dashboard-login/dashboard-login.component";
 
 const routes: Routes = [
   {path:"", component: HomeComponent},
@@ -19,6 +20,10 @@ const routes: Routes = [
   {path:"resume",component:ResumeComponent},
   {path:"mortgagecalc",component:MortgagecalcComponent},
   {path:"datagenerator",component:DatageneratorComponent},
+  {
+    path:"dashboard-login",
+    component:DashboardLoginComponent
+  },
   {path:"dashboard",component:DashboardComponent},
   {path:"marvel-browser",component:MarvelbrowserComponent}
 
