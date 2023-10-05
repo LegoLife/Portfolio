@@ -1,3 +1,17 @@
+# Portfolio Website
+
+Welcome to my Portfolio site repository! This repository showcases my professional journey, technical skills, and project highlights.
+
+## Contact
+
+Thank you for visiting my portfolio website. If you have any inquiries or would like to discuss potential collaborations or opportunities, please feel free to contact me 
+[jsteffen182@gmail.com](mailto:jsteffen182@gmail.com)
+
+
+
+---------------------------------------------
+------
+
 # Portfolio
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
