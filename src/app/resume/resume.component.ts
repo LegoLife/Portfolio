@@ -9,6 +9,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
   styleUrls: ['./resume.component.css']
 })
 export class ResumeComponent {
+  year:number = new Date().getFullYear();
 
 
 }
