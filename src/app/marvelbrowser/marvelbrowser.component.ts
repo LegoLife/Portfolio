@@ -43,11 +43,13 @@ export class MarvelbrowserComponent implements  OnInit{
 
   private fetch() {
     this.http.get<Character[]>(this.url).subscribe((res) => {
+
       this.characterData = Enumerable.from(res).where(x=>x.description.length>0 &&
         !x.thumbnail.path.includes("image_not_available"))
         .orderBy(x=>x.name)
         .toArray();
       this.filterData = this.characterData;
+      console.log(this.characterData);
     });
   }
 
