@@ -7,9 +7,15 @@
       <div class="card-header">Price</div>
       <div class="card-body">
         <label class="form-label">Min: </label>
-        <input class="form-control" type="number" [(ngModel)]="priceFilterMin" (ngModelChange)="filterChanged()">
+        <select class="form-control" name="priceFilterMin" id="priceFilterMin"  [(ngModel)]="priceFilterMin" (ngModelChange)="filterChanged()">
+          <option *ngFor="let i of ranges" value="{{i}}">{{i| currency}}</option>
+        </select>
+        <!-- <input class="form-control" type="number" [(ngModel)]="priceFilterMin" (ngModelChange)="filterChanged()"> -->
         <label class="form-label">Max: </label>
-        <input class="form-control"  type="number" [(ngModel)]="priceFilterMax" (ngModelChange)="filterChanged()">
+        <!-- <input class="form-control"  type="number" [(ngModel)]="priceFilterMax" (ngModelChange)="filterChanged()"> -->
+        <select class="form-control" name="priceFilterMax" id="priceFilterMax"  [(ngModel)]="priceFilterMax" (ngModelChange)="filterChanged()">
+          <option *ngFor="let i of ranges" value="{{i}}">{{i| currency}}</option>
+        </select>
       </div>
     </div>
 

@@ -13,8 +13,9 @@ import Enumerable from 'linq'
 export class RealestateComponent implements OnInit {
    homeDataArr:HomeData[] = [];
   filteredHomeDataArr:HomeData[] = [];
-  priceFilterMin:number=100000;
-  priceFilterMax:number=1000000;
+  public ranges: any=[0,50000,100000,150000,200000,250000,300000,400000,500000,1000000];
+  priceFilterMin:any=this.ranges[0];
+  priceFilterMax:any=this.ranges[9];
   searchFilter: string="";
   bathroomFilterMin: number=1;
   bathroomFilterMax: number=5;
