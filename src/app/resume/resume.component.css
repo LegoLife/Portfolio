@@ -1,3 +1,11 @@
+.download-button {
+  /* display: inline-block; */
+  /* float: right; */
+  padding: 10px;
+  background-color: #35424a;
+  color: white;
+  border-radius: 5px;
+}
 
 header {
   background-color: #35424a;
@@ -33,15 +41,7 @@ ul {
   margin-right: 5px;
 }
 
-.download-button {
-  display: inline-block;
-  float: right;
-  padding: 10px;
-  margin-top: .65em;
-  background-color: #35424a;
-  color: white;
-  border-radius: 5px;
-}
+
 
 .my-icon {
   height: 3em;
