@@ -57,7 +57,6 @@ downloadResume() {
 
     var imgHeight = 260;
     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-    var year = new Date().getFullYear();
     var fileName=`Jake-Steffen-Resume-${new Date().getFullYear()}.pdf`;
     pdf.save(fileName); // Generated PDF
   });
