@@ -149,7 +149,7 @@ export class DashboardComponent implements OnInit, AfterViewInit{
   UsersClicked() {
     this.resetViews();
     this.usersSelected=true;
-    console.log(this.userData.users);
+    
     this.userDtOptions = {
       data: this.userData.users,
       responsive:true,
