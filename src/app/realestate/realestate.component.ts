@@ -36,7 +36,7 @@ export class RealestateComponent implements OnInit {
     }
 
     for (var i = 0; i < 25; i++) {
-      var photoId = faker.number.int( {min: 0, max: 20});
+      //var photoId = faker.number.int( {min: 0, max: 20});
       var homeData = new HomeData();
         homeData.id= i;
         homeData.City= faker.location.city();
@@ -48,7 +48,7 @@ export class RealestateComponent implements OnInit {
         homeData.DatePosted= faker.date.recent({days:90});
         homeData.AboutLong= faker.lorem.paragraph();
         homeData.AboutShort= faker.lorem.sentence();
-        homeData.PhotoPath= "images/home" + photoId + ".jpg";
+        homeData.PhotoPath= "images/home" + i + ".jpg";
         homeData.BathRooms= faker.number.int( {min: this.bathroomFilterMin, max: this.bathroomFilterMax});
         homeData.BedRooms= faker.number.int( {min: this.bedroomFilterMin, max: this.bedroomFilterMax});
         homeData.SquareFt= faker.number.int( {min: 500, max: 5500}).toString();
@@ -59,7 +59,17 @@ export class RealestateComponent implements OnInit {
 
         this.homeDataArr.push(homeData);
     }
+
+    this.homeDataArr = this.shuffleArray(this.homeDataArr);
   }
+
+  shuffleArray(array:any) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+    return array;
+}
 
   Refresh(){
     this.InitData();

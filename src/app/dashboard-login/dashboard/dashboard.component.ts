@@ -63,10 +63,11 @@ export class DashboardComponent implements OnInit, AfterViewInit{
         o.Customer = new Customer();
         o.Customer.FirstName = faker.person.firstName();
         o.Customer.LastName = faker.person.lastName();
-        o.price=faker.commerce.price();
+        var priceNum = faker.commerce.price({ min: 100, max: 200, dec: 2});
+        o.price= "$"+priceNum
         o.quantity = faker.number.int({min:50,max:50000});
         o.orderNum = this.generateGuid();
-        o.Total = o.quantity*parseInt(o.price);
+        o.Total = (o.quantity*parseFloat(priceNum)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
         this.orderData.push(o);
       })

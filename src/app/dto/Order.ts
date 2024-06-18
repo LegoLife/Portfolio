@@ -4,7 +4,7 @@
   public orderNum:string="";
   public quantity:number=0;
   public price:string="";
-  Total: number=0;
+  Total: string="";
 }
 
 export class Customer
