@@ -8,7 +8,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class DatageneratorComponent implements OnInit  {
   workingDataRow:DataRow = new DataRow("","");
-  dataList:DataRow[] = [new DataRow("firstName","fName"),new DataRow("lastName","lName"),new DataRow("age","age")];
+  dataList:DataRow[] = [new DataRow("firstName","First Name"),new DataRow("lastName","Last Name"),new DataRow("age","Age")];
+
   options:string[] = [];
   numObjects:number=10;
   error:boolean=false;
@@ -102,6 +103,8 @@ export class DatageneratorComponent implements OnInit  {
           return;
         }
     }
+    else
+      alert("Number must be less than 99");
   }
   private outputCSharp() {
     var outList = this.getArrayList();

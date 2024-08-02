@@ -6,16 +6,17 @@
 <h4 *ngIf="error" class="error container-center">Select data type and change title</h4>
 
 <div class="container-center">
-<div *ngIf="dataList.length>0"  style="display:block;max-width: 40rem">
-  <div  class="container-center"  *ngFor="let item of dataList" >
-   <div class="card">
-     <div class="card-header" >
-       <p>Title: {{item.title}} | Type: {{item.dataType}}</p>
-     </div>
-   </div>
-    <button class="ml-5 btn btn-warning" (click)="Remove(item)">Remove</button>
+  <div *ngIf="dataList.length>0" style="display:flexbox;max-width: 40rem">
+    <div  class="container-center" >
+      <div class="card" *ngFor="let item of dataList">
+        <div class="card-body"  >
+          <p>{{item.title}}</p>
+          <button class="ml-5 btn btn-warning" (click)="Remove(item)">Remove</button>
+
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 </div>
 
 <div class="container-center">
