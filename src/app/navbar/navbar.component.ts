@@ -8,10 +8,7 @@ import Enumerable from "linq";
 })
 export class NavbarComponent implements  OnInit{
   ngOnInit(): void {
-    Enumerable.from(document.getElementsByTagName("img")).forEach(x=>{
-      if(x.alt ==="www.000webhost.com")
-        x.remove();
-    })
+
     }
 
 }

@@ -4,7 +4,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
-import {CalculatorComponent} from './calculator/calculator.component';
 import {RealestateComponent} from './realestate/realestate.component';
 import {ProjectsComponent} from './projects/projects.component';
 import {HomeComponent} from './home/home.component';
@@ -25,13 +24,13 @@ import { MarvelbrowserComponent } from './marvelbrowser/marvelbrowser.component'
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardLoginComponent } from './dashboard-login/dashboard-login.component';
 import {NgOptimizedImage} from "@angular/common";
+import { InvestmentCalculatorComponent } from './investment-calculator/investment-calculator.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    CalculatorComponent,
     RealestateComponent,
     ProjectsComponent,
     HomeComponent,
@@ -41,7 +40,8 @@ import {NgOptimizedImage} from "@angular/common";
     DashboardComponent,
     ProjectNavComponent,
     MarvelbrowserComponent,
-    DashboardLoginComponent
+    DashboardLoginComponent,
+    InvestmentCalculatorComponent
   ],
   imports: [
     BrowserModule,
@@ -54,8 +54,7 @@ import {NgOptimizedImage} from "@angular/common";
     ClipboardModule,
     NgChartsModule,
     DataTablesModule,
-    HttpClientModule,
-    NgOptimizedImage
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
