@@ -15,12 +15,21 @@
     <div class="investment-row">
       <label>
         Principal:
-        <input type="number" [(ngModel)]="investment.principal" />
+        <input
+          type="text"
+          [(ngModel)]="investment.principal"
+          (input)="formatPrincipal($event, i)"
+        />
+<!--        <input type="number" [(ngModel)]="investment.principal" />-->
       </label>
 
       <label>
-        Rate (%):
-        <input type="number" [(ngModel)]="investment.annualRate" />
+        <div class="tooltip-container">
+          Rate (%):
+          <input type="number" [(ngModel)]="investment.annualRate" />
+          <span class="tooltip-text">Annual interest rate (ex: 5 for 5%)</span>
+
+        </div>
       </label>
 
       <label>
@@ -30,11 +39,13 @@
 
       <label>
         Monthly Contribution:
-        <input type="number" [(ngModel)]="investment.monthlyContribution" />
+        <input type="number" [(ngModel)]="investment.monthlyContribution" (input)="formatMonthlyContribution($event, i)"/>
       </label>
     </div>
 
     <button style="margin-left: 1em; background-color: red" (click)="removeInvestment(i)">Remove</button>
+    <button style="margin-left: 1em;" (click)="duplicateInvestment(i)">Duplicate</button>
+
 
     <p *ngIf="investment.futureValue !== undefined">
       Future Value: <strong>{{ investment.futureValue | currency }}</strong>

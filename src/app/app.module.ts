@@ -9,7 +9,6 @@ import {ProjectsComponent} from './projects/projects.component';
 import {HomeComponent} from './home/home.component';
 import {FormsModule} from '@angular/forms';
 import {ResumeComponent} from './resume/resume.component';
-import {MortgagecalcComponent} from './mortgagecalc/mortgagecalc.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSliderModule} from "@angular/material/slider";
 import {MatCardModule} from "@angular/material/card";
@@ -35,7 +34,6 @@ import { InvestmentCalculatorComponent } from './investment-calculator/investmen
     ProjectsComponent,
     HomeComponent,
     ResumeComponent,
-    MortgagecalcComponent,
     DatageneratorComponent,
     DashboardComponent,
     ProjectNavComponent,

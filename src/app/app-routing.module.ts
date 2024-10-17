@@ -4,7 +4,6 @@ import {ProjectsComponent} from "./projects/projects.component";
 import {RealestateComponent} from "./realestate/realestate.component";
 import {HomeComponent} from "./home/home.component";
 import {ResumeComponent} from "./resume/resume.component";
-import {MortgagecalcComponent} from "./mortgagecalc/mortgagecalc.component";
 import {DatageneratorComponent} from "./datagenerator/datagenerator.component";
 import {DashboardComponent} from "./dashboard-login/dashboard/dashboard.component";
 import {MarvelbrowserComponent} from "./marvelbrowser/marvelbrowser.component";
@@ -18,7 +17,6 @@ const routes: Routes = [
   {path:"realestate", component: RealestateComponent},
   {path:"investment-calculator",component:InvestmentCalculatorComponent},
   {path:"resume",component:ResumeComponent},
-  {path:"mortgagecalc",component:MortgagecalcComponent},
   {path:"datagenerator",component:DatageneratorComponent},
   {
     path:"dashboard-login",

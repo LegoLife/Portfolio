@@ -1,3 +1,32 @@
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: yellow;
+  color: black;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  /*transform: translateX(-5%);*/
+  white-space: nowrap;
+
+  /* Add a little arrow */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 .combinedTotal{
   border: 1px solid #ddd;
   padding: 10px;
