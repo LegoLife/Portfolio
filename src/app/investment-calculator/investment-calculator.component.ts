@@ -21,18 +21,35 @@ export class InvestmentCalculatorComponent {
   totalFutureValue: number=0;
 
 
-  calculateFutureValue(investment: Investment): number {
-    const principal = parseFloat(investment.principal.replace(/,/g, ''));
-    const { annualRate, years, monthlyContribution } = investment;
-    const r = annualRate / 100;
-    const n = 12;
-    const t = years;
-    const contribution = parseFloat(investment.monthlyContribution.replace(/,/g, ''));
 
-    return (
-      principal * Math.pow(1 + r / n, n * t) +
-      (contribution * (Math.pow(1 + r / n, n * t) - 1)) / (r / n)
-    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+  calculateFutureValue(investment: Investment): number {
+    const principal = parseFloat(investment.principal.replace(/,/g, '')) || 0;
+    const monthlyContribution = parseFloat(investment.monthlyContribution.replace(/,/g, '')) || 0;
+    const annualRate = investment.annualRate / 100;
+    const years = investment.years;
+
+    const futureValuePrincipal = principal * Math.pow(1 + annualRate, years);
+
+    let futureValueContributions = 0;
+    for (let year = 1; year <= years; year++) {
+      const contributionsForYear = monthlyContribution * 12;
+      futureValueContributions += contributionsForYear * Math.pow(1 + annualRate, years - year);
+    }
+
+    return futureValuePrincipal + futureValueContributions;
   }
 
   calculateAll() {
