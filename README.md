@@ -1,3 +1,6 @@
+
+## [Live Page](https://legolife.github.io/Portfolio)
+
 # Portfolio Website
 
 Welcome to my Portfolio site repository! This repository showcases my professional journey, technical skills, and project highlights.
