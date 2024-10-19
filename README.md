@@ -1,5 +1,5 @@
+## <a href="https://legolife.github.io/Portfolio" target="_blank" rel="noopener noreferrer">Live Page</a>
 
-## [Live Page](https://legolife.github.io/Portfolio)
 
 # Portfolio Website
 
