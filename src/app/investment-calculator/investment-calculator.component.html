@@ -4,93 +4,67 @@
 <div class="investment-container">
   <h2>Investment Calculator</h2>
 
-
-  <p  class="combinedTotal">
-    Combined Total: <strong>{{ totalFutureValue | currency }}</strong>
-
-  </p>
+  <div class="investment-row">
+    <button (click)="calculateAll()">Calculate All</button>
+    <button (click)="addInvestment()">Add Investment</button>
+  </div>
   <div *ngFor="let investment of investments; let i = index" class="investment-card">
-    <h3>Investment {{ i + 1 }}</h3>
+
+    <div class="investment-header">
+      <h3>Investment {{ i + 1 }}</h3>
+    </div>
 
     <div class="investment-row">
-      <label>
-        Principal:
+      <div class="input-group">
+        <label for="principal-{{ i }}">Principal:</label>
         <input
+          id="principal-{{ i }}"
           type="text"
           [(ngModel)]="investment.principal"
           (input)="formatPrincipal($event, i)"
         />
-<!--        <input type="number" [(ngModel)]="investment.principal" />-->
-      </label>
+      </div>
 
-      <label>
-        <div class="tooltip-container">
-          Rate (%):
-          <input type="number" [(ngModel)]="investment.annualRate" />
-          <span class="tooltip-text">Annual interest rate (ex: 5 for 5%)</span>
-
-        </div>
-      </label>
-
-      <label>
-        Years:
-        <input type="number" [(ngModel)]="investment.years" />
-      </label>
-
-      <label>
-        Monthly Contribution:
-        <input type="number" [(ngModel)]="investment.monthlyContribution" (input)="formatMonthlyContribution($event, i)"/>
-      </label>
+      <div class="input-group">
+        <label for="rate-{{ i }}">Rate (%):</label>
+        <input id="rate-{{ i }}" type="number" [(ngModel)]="investment.annualRate" />
+      </div>
     </div>
 
-    <button style="margin-left: 1em; background-color: red" (click)="removeInvestment(i)">Remove</button>
-    <button style="margin-left: 1em;" (click)="duplicateInvestment(i)">Duplicate</button>
+    <div class="investment-row">
+      <div class="input-group">
+        <label for="years-{{ i }}">Years:</label>
+        <input id="years-{{ i }}" type="number" [(ngModel)]="investment.years" />
+      </div>
 
+      <div class="input-group">
+
+        <label for="contribution-{{ i }}">Contribution:</label>
+        <div class="tooltip-container">
+
+          <input id="contribution-{{ i }}" type="text"  (input)="formatMonthlyContribution($event, i)" [(ngModel)]="investment.monthlyContribution" />
+          <span class="tooltip-text">Contribution per month</span>
+        </div>
+      </div>
+
+      <button  style="background-color: grey" (click)="duplicateInvestment(i)">Duplicate</button>
+
+      <button style="background-color: red" (click)="removeInvestment(i)">Remove</button>
+    </div>
 
     <p *ngIf="investment.futureValue !== undefined">
       Future Value: <strong>{{ investment.futureValue | currency }}</strong>
     </p>
+
+
+
+
+    <details (toggle)="onDetailsToggle($event, investment, i)">
+      <summary>View Yearly Breakdown</summary>
+      <canvas #chartCanvas></canvas>
+    </details>
+
   </div>
 
-  <button (click)="addInvestment()">Add Investment</button>
-  <button (click)="calculateAll()">Calculate All</button>
-  <button style="margin-left: 1em; background-color: lightsalmon" (click)="clearAll()">Clear All</button>
+
 </div>
-
-
-
-<!--<div class="investment-container">-->
-<!--  <h2>Investment Calculator</h2>-->
-
-<!--  <div *ngFor="let investment of investments; let i = index" class="investment-card">-->
-<!--    <h3>Investment {{ i + 1 }}</h3>-->
-
-<!--    <label>-->
-<!--      Principal Amount:-->
-<!--      <input type="number" [(ngModel)]="investment.principal" />-->
-<!--    </label>-->
-
-<!--    <label>-->
-<!--      Annual Interest Rate (%):-->
-<!--      <input type="number" [(ngModel)]="investment.annualRate" />-->
-<!--    </label>-->
-
-<!--    <label>-->
-<!--      Years:-->
-<!--      <input type="number" [(ngModel)]="investment.years" />-->
-<!--    </label>-->
-
-<!--    <label>-->
-<!--      Monthly Contribution:-->
-<!--      <input type="number" [(ngModel)]="investment.monthlyContribution" />-->
-<!--    </label>-->
-
-<!--    <p *ngIf="investment.futureValue !== undefined">-->
-<!--      Future Value: {{ investment.futureValue | currency }}-->
-<!--    </p>-->
-<!--  </div>-->
-
-<!--  <button (click)="addInvestment()">Add Investment</button>-->
-<!--  <button (click)="calculateAll()">Calculate All</button>-->
-<!--</div>-->
-
