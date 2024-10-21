@@ -8,7 +8,6 @@ import {RealestateComponent} from './realestate/realestate.component';
 import {ProjectsComponent} from './projects/projects.component';
 import {HomeComponent} from './home/home.component';
 import {FormsModule} from '@angular/forms';
-import {ResumeComponent} from './resume/resume.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSliderModule} from "@angular/material/slider";
 import {MatCardModule} from "@angular/material/card";
@@ -24,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardLoginComponent } from './dashboard-login/dashboard-login.component';
 import {NgOptimizedImage} from "@angular/common";
 import { InvestmentCalculatorComponent } from './investment-calculator/investment-calculator.component';
+import { ResumeTerminalComponent } from './resume-terminal/resume-terminal.component';
 
 
 @NgModule({
@@ -33,13 +33,13 @@ import { InvestmentCalculatorComponent } from './investment-calculator/investmen
     RealestateComponent,
     ProjectsComponent,
     HomeComponent,
-    ResumeComponent,
     DatageneratorComponent,
     DashboardComponent,
     ProjectNavComponent,
     MarvelbrowserComponent,
     DashboardLoginComponent,
-    InvestmentCalculatorComponent
+    InvestmentCalculatorComponent,
+    ResumeTerminalComponent
   ],
   imports: [
     BrowserModule,

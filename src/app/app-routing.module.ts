@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import {ProjectsComponent} from "./projects/projects.component";
 import {RealestateComponent} from "./realestate/realestate.component";
 import {HomeComponent} from "./home/home.component";
-import {ResumeComponent} from "./resume/resume.component";
 import {DatageneratorComponent} from "./datagenerator/datagenerator.component";
 import {DashboardComponent} from "./dashboard-login/dashboard/dashboard.component";
 import {MarvelbrowserComponent} from "./marvelbrowser/marvelbrowser.component";
 import {DashboardLoginComponent} from "./dashboard-login/dashboard-login.component";
 import {InvestmentCalculatorComponent} from "./investment-calculator/investment-calculator.component";
+import {ResumeTerminalComponent} from "./resume-terminal/resume-terminal.component";
 
 const routes: Routes = [
   {path:"", component: HomeComponent},
@@ -16,7 +16,8 @@ const routes: Routes = [
   {path:"projects", component: ProjectsComponent},
   {path:"realestate", component: RealestateComponent},
   {path:"investment-calculator",component:InvestmentCalculatorComponent},
-  {path:"resume",component:ResumeComponent},
+  {path:"resume",component:ResumeTerminalComponent},
+  {path:"resume-terminal",component: ResumeTerminalComponent},
   {path:"datagenerator",component:DatageneratorComponent},
   {
     path:"dashboard-login",

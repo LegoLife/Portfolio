@@ -1,0 +1,21 @@
+<div class="terminal-window">
+  <div class="header">
+
+    <div class="buttons">
+      <span class="close"></span>
+      <span class="minimize"></span>
+      <span class="maximize"></span>
+    </div>
+    <button (click)="downloadResume()" class="download-button">
+      <i class="fas fa-download"></i> Download
+    </button>
+    <span class="title">~/resume.txt</span>
+  </div>
+
+  <div class="content">
+    <pre>
+      <span *ngFor="let char of typedText">{{ char }}</span>
+    </pre>
+  </div>
+</div>
+
