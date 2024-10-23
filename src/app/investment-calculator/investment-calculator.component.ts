@@ -1,5 +1,6 @@
 import {Component, ElementRef, QueryList, ViewChildren} from '@angular/core';
 import Chart from 'chart.js/auto';
+import {CurrencyPipe} from "@angular/common";
 
 interface YearlyBreakdown {
   year: number;
@@ -100,28 +101,66 @@ export class InvestmentCalculatorComponent {
     }
   }
 
-  initializeChart(investment: Investment, chartElement: HTMLCanvasElement) {
+  initializeChart(investment: any, chartElement: HTMLCanvasElement) {
     if (investment.yearlyBreakdown) {
-      const labels = investment.yearlyBreakdown.map((y) => `Year ${y.year}`);
-      const principalData = investment.yearlyBreakdown.map((y) => y.principal);
-      const interestData = investment.yearlyBreakdown.map((y) => y.interest);
-      const totalData = investment.yearlyBreakdown.map((y) => y.total);
+      var self =this;
+      const labels = investment.yearlyBreakdown.map((y: any) => `Year ${y.year}`);
+      const principalData = investment.yearlyBreakdown.map((y: any) => y.principal);
+      const interestData = investment.yearlyBreakdown.map((y: any) => y.interest);
+      const totalData = investment.yearlyBreakdown.map((y: any) => y.total);
 
       new Chart(chartElement, {
         type: 'line',
         data: {
           labels,
           datasets: [
-            { label: 'Principal', data: principalData, borderColor: 'blue', fill: false },
-            { label: 'Interest', data: interestData, borderColor: 'green', fill: false },
-            { label: 'Total', data: totalData, borderColor: 'red', fill: false }
+            {
+              label: 'Principal',
+              data: principalData,
+              borderColor: 'blue',
+              fill: false
+            },
+            {
+              label: 'Interest',
+              data: interestData,
+              borderColor: 'green',
+              fill: false
+            },
+            {
+              label: 'Total',
+              data: totalData,
+              borderColor: 'red',
+              fill: false
+            }
           ]
         },
         options: {
           responsive: true,
           plugins: {
-            legend: { position: 'top' },
-            tooltip: { enabled: true }
+            legend: {
+              position: 'top'
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  let value = context.raw || 0;
+                  return `${context.dataset.label}: ${self.formatToCurrency(value as number)}`;
+                  // return `${context.dataset.label}: ${value.toLocaleString('en-US', {
+                  //   style: 'currency',
+                  //   currency: 'USD'
+                  //})}`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              ticks: {
+                callback: function (value) {
+                  return self.formatToCurrency(value as number);
+                }
+              }
+            }
           }
         }
       });
@@ -129,6 +168,40 @@ export class InvestmentCalculatorComponent {
   }
 
 
+  // initializeChart(investment: Investment, chartElement: HTMLCanvasElement) {
+  //   if (investment.yearlyBreakdown) {
+  //     const labels = investment.yearlyBreakdown.map((y) => `Year ${y.year}`);
+  //     const principalData = investment.yearlyBreakdown.map((y) => y.principal);
+  //     const interestData = investment.yearlyBreakdown.map((y) => y.interest);
+  //     const totalData = investment.yearlyBreakdown.map((y) => y.total);
+  //
+  //     new Chart(chartElement, {
+  //       type: 'line',
+  //       data: {
+  //         labels,
+  //         datasets: [
+  //           { label: 'Principal', data: principalData, borderColor: 'blue', fill: false },
+  //           { label: 'Interest', data: interestData, borderColor: 'red', fill: false },
+  //           { label: 'Total', data: totalData, borderColor: 'green', fill: true,  }
+  //         ]
+  //       },
+  //       options: {
+  //         responsive: true,
+  //         plugins: {
+  //           legend: { position: 'top' },
+  //           tooltip: { enabled: true }
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
+
+  formatToCurrency(amount:number, currency = 'USD', locale = 'en-US') {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: currency
+    }).format(amount);
+  }
   addInvestment() {
     this.investments.push({ principal: "1,000", annualRate: 5, years: 10, monthlyContribution: "0" });
   }

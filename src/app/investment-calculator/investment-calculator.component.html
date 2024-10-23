@@ -8,6 +8,7 @@
     <button (click)="calculateAll()">Calculate All</button>
     <button (click)="addInvestment()">Add Investment</button>
   </div>
+  <p class="combinedTotal" >Total Value: {{totalFutureValue | currency}}</p>
   <div *ngFor="let investment of investments; let i = index" class="investment-card">
 
     <div class="investment-header">
