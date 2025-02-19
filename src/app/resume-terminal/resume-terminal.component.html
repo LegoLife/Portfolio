@@ -1,21 +1,58 @@
-<div class="terminal-window">
+<div class="container">
   <div class="header">
-
-    <div class="buttons">
-      <span class="close"></span>
-      <span class="minimize"></span>
-      <span class="maximize"></span>
-    </div>
-    <button (click)="downloadResume()" class="download-button">
-      <i class="fas fa-download"></i> Download
-    </button>
-    <span class="title">~/resume.txt</span>
+      <h1>Jake Steffen</h1>
+      <p>Software Developer</p>
   </div>
 
-  <div class="content">
-    <pre>
-      <span *ngFor="let char of typedText">{{ char }}</span>
-    </pre>
+  <div class="section">
+      <h2>Experience</h2>
+      <div class="job">
+          <h3>Programmer/Analyst - Hoosier Energy</h3>
+          <p>4/2018 - Present</p>
+          <p>Work with end users to create and maintain various applications using C#.</p>
+          <p> Projects listed below</p>
+      </div>
+
+      <div class="job">
+          <h3>System Administrator - Hoosier Energy</h3>
+          <p>3/2015 - 4/2018</p>
+          <p>Managed network infrastructure and developed PowerShell automation scripts to streamline IT processes.</p>
+      </div>
+  </div>
+
+  <div class="section">
+    <h2>Projects</h2>
+    <ol>
+      <li>Real-time Data Collection Application</li>
+      <ul>
+        <li>Provides real-time tracking of 80+ servers and workstations, including Windows and Linux,
+          with a full-stack web interface (Angular) and .NET Web API (900+ endpoints) for
+          data input, viewing, and export.</li>
+      </ul>
+      <li>API Integration and Data Retrieval</li>
+      <ul>
+        <li>Created and maintain 20+ C# applications for fetching and storing data from various
+          APIs, optimizing data processes, and ensuring data integrity. Collaborated for seamless
+          integration and ongoing support.</li>
+      </ul>
+    </ol>
+  </div>
+
+  <div class="section">
+      <h2>Skills</h2>
+      <div class="skills">
+          <ul>
+              <li>.NET (C#)</li>
+              <li>SQL Server</li>
+              <li>Angular+Typescript</li>
+              <li>Azure Dev Ops</li>
+              <li>Visual Studio</li>
+          </ul>
+      </div>
+  </div>
+
+  <div class="section">
+      <h2>Education</h2>
+      <p>Bachelor of Science Networking and Telecommunications (2014)</p>
   </div>
 </div>
-
