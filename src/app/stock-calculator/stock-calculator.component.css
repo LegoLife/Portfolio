@@ -1,0 +1,93 @@
+.stock-calculator-container {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.stock-calculator {
+  width: 800px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.calculator-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.inputs {
+  flex: 1;
+}
+
+.input-group {
+  margin: 15px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.note {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 10px;
+}
+
+.results {
+  flex: 1;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.results h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.results p {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.graph-section {
+  margin-top: 20px;
+}
+
+.graph-toggle {
+  width: 100%;
+  padding: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.graph-toggle:hover {
+  background-color: #0056b3;
+}
+
+.graph-container {
+  margin-top: 15px;
+  max-height: 300px;
+}

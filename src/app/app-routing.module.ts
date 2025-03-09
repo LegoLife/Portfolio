@@ -7,15 +7,14 @@ import {DatageneratorComponent} from "./datagenerator/datagenerator.component";
 import {DashboardComponent} from "./dashboard-login/dashboard/dashboard.component";
 import {MarvelbrowserComponent} from "./marvelbrowser/marvelbrowser.component";
 import {DashboardLoginComponent} from "./dashboard-login/dashboard-login.component";
-import {InvestmentCalculatorComponent} from "./investment-calculator/investment-calculator.component";
 import {ResumeTerminalComponent} from "./resume-terminal/resume-terminal.component";
+import { StockCalculatorComponent } from './stock-calculator/stock-calculator.component';
 
 const routes: Routes = [
   {path:"", component: HomeComponent},
   {path:"home", component: HomeComponent},
   {path:"projects", component: ProjectsComponent},
   {path:"realestate", component: RealestateComponent},
-  {path:"investment-calculator",component:InvestmentCalculatorComponent},
   {path:"resume",component:ResumeTerminalComponent},
   {path:"resume-terminal",component: ResumeTerminalComponent},
   {path:"datagenerator",component:DatageneratorComponent},
@@ -24,7 +23,8 @@ const routes: Routes = [
     component:DashboardLoginComponent
   },
   {path:"dashboard",component:DashboardComponent},
-  {path:"marvel-browser",component:MarvelbrowserComponent}
+  {path:"marvel-browser",component:MarvelbrowserComponent},
+  {path: "stock-calculator", component: StockCalculatorComponent}
 
 ];
 

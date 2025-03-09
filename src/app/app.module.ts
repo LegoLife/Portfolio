@@ -22,8 +22,8 @@ import { MarvelbrowserComponent } from './marvelbrowser/marvelbrowser.component'
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardLoginComponent } from './dashboard-login/dashboard-login.component';
 import {NgOptimizedImage} from "@angular/common";
-import { InvestmentCalculatorComponent } from './investment-calculator/investment-calculator.component';
 import { ResumeTerminalComponent } from './resume-terminal/resume-terminal.component';
+import { StockCalculatorComponent } from './stock-calculator/stock-calculator.component';
 
 
 @NgModule({
@@ -38,8 +38,8 @@ import { ResumeTerminalComponent } from './resume-terminal/resume-terminal.compo
     ProjectNavComponent,
     MarvelbrowserComponent,
     DashboardLoginComponent,
-    InvestmentCalculatorComponent,
-    ResumeTerminalComponent
+    ResumeTerminalComponent,
+    StockCalculatorComponent
   ],
   imports: [
     BrowserModule,

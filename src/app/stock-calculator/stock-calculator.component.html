@@ -1,0 +1,54 @@
+<app-project-nav></app-project-nav>
+
+<div class="stock-calculator-container">
+  <div class="stock-calculator">
+    <h2>Stock Investment Calculator</h2>
+
+    <div class="calculator-content">
+      <div class="inputs">
+        <div class="input-group">
+          <label>Starting Balance ($):</label>
+          <input type="number" [(ngModel)]="startingBalance" min="0" step="0.01">
+        </div>
+
+        <div class="input-group">
+          <label>Initial Stock Price ($):</label>
+          <input type="number" [(ngModel)]="initialPrice" min="0" step="0.01">
+        </div>
+
+        <div class="input-group">
+          <label>Projected Stock Price ($):</label>
+          <input type="number" [(ngModel)]="projectedPrice" min="0" step="0.01">
+        </div>
+
+        <div class="input-group">
+          <label>Time Period (Years):</label>
+          <input type="number" [(ngModel)]="years" min="1" step="1">
+        </div>
+
+        <div class="input-group">
+          <label>Monthly Investment ($):</label>
+          <input type="number" [(ngModel)]="monthlyInvestment" min="0" step="0.01">
+        </div>
+      </div>
+
+      <div class="results" *ngIf="cagr !== null">
+        <h3>Results:</h3>
+        <p>CAGR: {{ cagr | number:'1.2-2' }}%</p>
+        <!-- <p>Total Shares: {{ totalShares | number:'1.2-2' }}</p> -->
+        <!-- <p>Total Invested: ${{ totalInvestment | number:'1.2-2' }}</p> -->
+        <p>Final Value: ${{ finalValue | number:'1.2-2' }}</p>
+
+
+        <div class="graph-section">
+          <button (click)="toggleGraph()" class="graph-toggle">
+            {{ showGraph ? 'Hide' : 'Show' }} Value Growth Graph
+          </button>
+          <div class="graph-container" *ngIf="showGraph">
+            <canvas #chartCanvas></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
