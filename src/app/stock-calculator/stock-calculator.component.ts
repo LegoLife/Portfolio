@@ -44,33 +44,70 @@ export class StockCalculatorComponent implements OnInit {
     }
   }
 
+
   calculateResults() {
-    if (this.initialPrice > 0 && this.projectedPrice > 0 && this.years > 0) {
-      this.cagr = (Math.pow(this.projectedPrice / this.initialPrice, 1 / this.years) - 1) * 100;
-
-      const totalMonths = this.years * 12;
-      const monthlyGrowthRate = Math.pow(1 + (this.cagr / 100), 1 / 12) - 1;
-      let currentShares = this.startingBalance / this.initialPrice; // Initial shares from starting balance
-      let currentValue = this.startingBalance;
-
-      for (let month = 0; month < totalMonths; month++) {
-        currentShares += this.monthlyInvestment / this.initialPrice;
-        const currentPrice = this.initialPrice * Math.pow(1 + monthlyGrowthRate, month + 1);
-        currentValue = currentShares * currentPrice;
-      }
-
-      this.totalShares = currentShares;
-      this.totalInvestment = this.startingBalance + (this.monthlyInvestment * totalMonths);
-      this.finalValue = currentValue;
-      this.profit = this.finalValue - this.totalInvestment;
-    } else {
+    if (this.initialPrice <= 0 || this.projectedPrice <= 0 || this.years <= 0) {
       this.cagr = null;
       this.totalShares = null;
       this.totalInvestment = null;
       this.finalValue = null;
       this.profit = null;
+      return;
     }
+
+    // Calculate CAGR
+    this.cagr = (Math.pow(this.projectedPrice / this.initialPrice, 1 / this.years) - 1) * 100;
+    const monthlyGrowthRate = Math.pow(1 + (this.cagr / 100), 1 / 12) - 1;
+    const totalMonths = this.years * 12;
+
+    let currentShares = this.startingBalance / this.initialPrice; // Initial shares
+    let currentPrice = this.initialPrice;
+    let totalInvested = this.startingBalance;
+
+    // Simulate monthly investment with growing price
+    for (let month = 0; month < totalMonths; month++) {
+      // Buy shares at the current price
+      const sharesBought = this.monthlyInvestment / currentPrice;
+      currentShares += sharesBought;
+      totalInvested += this.monthlyInvestment;
+
+      // Update price for next month
+      currentPrice *= (1 + monthlyGrowthRate);
+    }
+
+    // Final value based on final price (should match projectedPrice within rounding)
+    this.totalShares = currentShares;
+    this.totalInvestment = totalInvested;
+    this.finalValue = currentShares * currentPrice;
+    this.profit = this.finalValue - this.totalInvestment;
   }
+  // calculateResults() {
+  //   if (this.initialPrice > 0 && this.projectedPrice > 0 && this.years > 0) {
+  //     this.cagr = (Math.pow(this.projectedPrice / this.initialPrice, 1 / this.years) - 1) * 100;
+  //
+  //     const totalMonths = this.years * 12;
+  //     const monthlyGrowthRate = Math.pow(1 + (this.cagr / 100), 1 / 12) - 1;
+  //     let currentShares = this.startingBalance / this.initialPrice; // Initial shares from starting balance
+  //     let currentValue = this.startingBalance;
+  //
+  //     for (let month = 0; month < totalMonths; month++) {
+  //       currentShares += this.monthlyInvestment / this.initialPrice;
+  //       const currentPrice = this.initialPrice * Math.pow(1 + monthlyGrowthRate, month + 1);
+  //       currentValue = currentShares * currentPrice;
+  //     }
+  //
+  //     this.totalShares = currentShares;
+  //     this.totalInvestment = this.startingBalance + (this.monthlyInvestment * totalMonths);
+  //     this.finalValue = currentValue;
+  //     this.profit = this.finalValue - this.totalInvestment;
+  //   } else {
+  //     this.cagr = null;
+  //     this.totalShares = null;
+  //     this.totalInvestment = null;
+  //     this.finalValue = null;
+  //     this.profit = null;
+  //   }
+  // }
 
   formatNumberWithCommas(value: number): string {
     return value.toLocaleString('en-US', {
