@@ -1,0 +1,158 @@
+@import "theme/variables";
+
+// ============================================================
+// Global Imperial theme layer.
+// Bootstrap's own colors are handled via src/theme/bootstrap-theme.scss
+// (Sass variable overrides). This file adds: layout fixes carried over
+// from the original styles.css, CSS custom properties for use in
+// component stylesheets, typography, and the animated starfield.
+// ============================================================
+
+:root {
+  --imp-black: #{$imp-black};
+  --imp-black-alt: #{$imp-black-alt};
+  --imp-panel: #{$imp-panel};
+  --imp-border: #{$imp-border};
+  --imp-gray: #{$imp-gray};
+  --imp-gray-light: #{$imp-gray-light};
+  --imp-red: #{$imp-red};
+  --imp-red-dark: #{$imp-red-dark};
+  --imp-red-bright: #{$imp-red-bright};
+  --imp-white: #{$imp-white};
+  --font-display: 'Rajdhani', 'Inter', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+html, body {
+  overflow-y: scroll !important;
+  background-color: var(--imp-black);
+  color: var(--imp-white);
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  position: relative;
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar-brand {
+  font-family: var(--font-display);
+  letter-spacing: .02em;
+}
+
+a {
+  color: var(--imp-red-bright);
+}
+a:hover {
+  color: var(--imp-red);
+}
+
+::selection {
+  background: var(--imp-red-dark);
+  color: var(--imp-white);
+}
+
+.container-center {
+  display: flex;
+  justify-content: center;
+}
+
+.my-content {
+  padding-bottom: 120px !important;
+  position: relative;
+  z-index: 1;
+}
+
+footer {
+  position: fixed !important;
+  right: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 70px !important;
+  z-index: 2;
+}
+
+.footer-github {
+  float: right !important;
+  display: block !important;
+  margin-right: 2em !important;
+}
+
+// ------------------------------------------------------------
+// Animated starfield background — pure CSS, low opacity, fixed
+// behind all content, no images / no JS.
+// ------------------------------------------------------------
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--imp-black);
+  overflow: hidden;
+}
+
+.starfield::before,
+.starfield::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-repeat: repeat;
+  opacity: .5;
+  will-change: transform;
+}
+
+.starfield::before {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, .8), transparent),
+    radial-gradient(1px 1px at 90px 120px, rgba(255, 255, 255, .6), transparent),
+    radial-gradient(1.5px 1.5px at 160px 60px, rgba(200, 30, 44, .7), transparent),
+    radial-gradient(1px 1px at 230px 180px, rgba(255, 255, 255, .5), transparent),
+    radial-gradient(1px 1px at 300px 40px, rgba(255, 255, 255, .7), transparent),
+    radial-gradient(1px 1px at 40px 200px, rgba(255, 255, 255, .5), transparent);
+  background-size: 340px 240px;
+  animation: starfield-drift 240s linear infinite;
+}
+
+.starfield::after {
+  background-image:
+    radial-gradient(1px 1px at 50px 80px, rgba(255, 255, 255, .5), transparent),
+    radial-gradient(1px 1px at 140px 20px, rgba(255, 255, 255, .4), transparent),
+    radial-gradient(1px 1px at 210px 150px, rgba(255, 255, 255, .6), transparent),
+    radial-gradient(1.5px 1.5px at 280px 100px, rgba(200, 30, 44, .5), transparent);
+  background-size: 420px 320px;
+  animation: starfield-drift 360s linear infinite reverse, starfield-twinkle 6s ease-in-out infinite;
+}
+
+@keyframes starfield-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-340px, -240px, 0); }
+}
+
+@keyframes starfield-twinkle {
+  0%, 100% { opacity: .35; }
+  50% { opacity: .6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starfield::before,
+  .starfield::after {
+    animation: none;
+  }
+}
+
+// ------------------------------------------------------------
+// Generic surfaces used across pages that previously hardcoded
+// white/light backgrounds directly in component styles.
+// ------------------------------------------------------------
+.card {
+  background-color: var(--imp-panel);
+  border-color: var(--imp-border);
+}
+
+.table {
+  color: var(--imp-white);
+}

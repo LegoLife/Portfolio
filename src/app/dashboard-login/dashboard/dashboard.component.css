@@ -1,8 +1,8 @@
 .my-header
 {
-  background-color: #4A525A;
+  background-color: var(--imp-black-alt, #101014);
   width: 250px;
-  color: white;
+  color: var(--imp-white, #f4f4f6);
 }
 .dashboard {
   display: flex;
@@ -10,7 +10,8 @@
 }
 
 .sidebar {
-  background-color: rgba(119, 136, 153, 0.42);
+  background-color: var(--imp-panel, #17171c);
+  border-right: 1px solid var(--imp-border, #2a2a30);
   width:10em;
   padding: .5em;
   height: 120vh;
@@ -23,17 +24,20 @@
 
 .sidebar p
 {
-  background-color: yellow;
+  background-color: var(--imp-red, #c81e2c);
+  color: #fff;
   margin: 0 0 2em 0 ;
+  padding: .25em .5em;
 }
 
 .sidebar a {
     text-decoration: none;
-    color: black;
+    color: var(--imp-white, #f4f4f6);
   }
 
 .sidebar a.active {
   font-weight: bold;
+  color: var(--imp-red-bright, #e23c4a);
 }
 
 .content {

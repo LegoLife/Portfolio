@@ -30,11 +30,17 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/bootstrap/scss/bootstrap.scss",
+              "src/theme/bootstrap-theme.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "src/styles.css",
+              "src/styles.scss",
               "node_modules/datatables.net-dt/css/jquery.dataTables.min.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules",
+                "src/theme"
+              ]
+            },
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/jquery/dist/jquery.min.js",
@@ -100,11 +106,16 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/bootstrap/scss/bootstrap.scss",
+              "src/theme/bootstrap-theme.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "src/styles.scss",
-              "src/styles.css"
+              "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules",
+                "src/theme"
+              ]
+            },
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]

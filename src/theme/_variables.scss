@@ -1,0 +1,46 @@
+// ============================================================
+// Imperial theme palette — SCSS variables consumed by both the
+// Bootstrap override entry point and plain component styles.
+// ============================================================
+
+$imp-black:      #0a0a0c;   // near-black graphite background
+$imp-black-alt:  #101014;   // slightly raised panel background
+$imp-panel:      #17171c;   // card / panel background
+$imp-border:     #2a2a30;   // subtle borders
+$imp-gray:       #8a8a92;   // muted / secondary text
+$imp-gray-light: #b8b8c0;   // slightly brighter muted text
+
+$imp-red:        #c81e2c;   // Sith / Imperial red — primary accent
+$imp-red-dark:   #8f141f;   // pressed / hover shade
+$imp-red-bright: #e23c4a;   // highlight / link-hover shade
+
+$imp-white:      #f4f4f6;   // body text / off-white
+
+// Bootstrap variable overrides — must be set before bootstrap import
+$primary:       $imp-red;
+$secondary:     $imp-gray;
+$dark:          $imp-black-alt;
+$light:         $imp-panel;
+$body-bg:       $imp-black;
+$body-color:    $imp-white;
+$border-color:  $imp-border;
+
+$link-color:          $imp-red-bright;
+$link-hover-color:    $imp-red;
+
+$card-bg:             $imp-panel;
+$card-border-color:   $imp-border;
+
+$navbar-dark-color:                rgba($imp-white, .75);
+$navbar-dark-hover-color:          $imp-white;
+$navbar-dark-active-color:         $imp-red-bright;
+
+$font-family-sans-serif: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$headings-font-family: 'Rajdhani', 'Inter', sans-serif;
+$headings-font-weight: 600;
+$headings-letter-spacing: .02em;
+
+$btn-border-radius: .375rem;
+$input-bg: $imp-black-alt;
+$input-color: $imp-white;
+$input-border-color: $imp-border;

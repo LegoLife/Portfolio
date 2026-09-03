@@ -6,8 +6,10 @@
 }
 
 .property-card {
-  border: 1px solid #ccc;
+  border: 1px solid var(--imp-border, #2a2a30);
   border-radius: 10px;
+  background-color: var(--imp-panel, #17171c);
+  color: var(--imp-white, #f4f4f6);
 
   padding: 16px;
   margin: 5px;

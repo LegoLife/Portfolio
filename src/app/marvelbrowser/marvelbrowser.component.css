@@ -6,8 +6,10 @@
 }
 
 .hero-card {
-  border: 5px solid #ccc;
+  border: 5px solid var(--imp-border, #2a2a30);
   border-radius: 10px;
+  background-color: var(--imp-panel, #17171c);
+  color: var(--imp-white, #f4f4f6);
 
   padding: 16px;
   margin: 5px;
@@ -20,7 +22,7 @@
 }
 
 .hero-card:hover{
-  background-color: yellow;
+  background-color: var(--imp-red-dark, #8f141f);
   cursor: pointer;
 }
 

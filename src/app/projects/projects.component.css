@@ -13,11 +13,11 @@ a{
 }
 
 .project-card {
-  border: 1px solid #ccc;
+  border: 1px solid var(--imp-border, #2a2a30);
   padding: 16px;
   margin: 16px;
   max-width: 300px;
-  background-color: #35424a;
+  background-color: var(--imp-panel, #17171c);
 }
 
 .project-card img {

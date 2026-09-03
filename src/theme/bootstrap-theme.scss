@@ -1,0 +1,5 @@
+// Local entry point that overrides Bootstrap's Sass variables before
+// compiling Bootstrap itself, so the Imperial palette actually takes
+// effect (rather than just painting over Bootstrap's default blue).
+@import "variables";
+@import "bootstrap/scss/bootstrap";

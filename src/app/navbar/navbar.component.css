@@ -1,4 +1,51 @@
-.nav a{
+.imperial-navbar {
+  background: linear-gradient(180deg, #131316 0%, #0a0a0c 100%);
+  border-bottom: 2px solid var(--imp-red, #c81e2c);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .5);
+  padding: .6em 1em;
+}
+
+.imperial-navbar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.imperial-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  font-family: var(--font-display, 'Rajdhani', sans-serif);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #f4f4f6;
+  font-size: 1.05rem;
+}
+
+.imperial-mark {
+  flex-shrink: 0;
+}
+
+.nav a {
   font-size: 12pt !important;
-  color:white !important;
+  color: rgba(244, 244, 246, .75) !important;
+  border: none !important;
+  background: transparent !important;
+  font-family: var(--font-display, 'Rajdhani', sans-serif);
+  letter-spacing: .03em;
+  transition: color .15s ease;
+}
+
+.nav a:hover {
+  color: #f4f4f6 !important;
+}
+
+.nav a.active {
+  color: #c81e2c !important;
+  border-bottom: 2px solid #c81e2c !important;
 }

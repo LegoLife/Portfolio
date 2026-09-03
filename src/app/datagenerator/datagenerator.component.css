@@ -4,5 +4,5 @@
 }
 
 .error{
-  color:red;
+  color: var(--imp-red-bright, #e23c4a);
 }
