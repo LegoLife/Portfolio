@@ -44,7 +44,7 @@ public static class Profile
     public static IReadOnlyList<string> Summary(DateTime today) =>
     [
         $"I'm a software developer with {YearsDeveloping(today)}+ years of building web-based systems and {YearsInIt(today)}+ years in IT overall. " +
-        "I started as a system administrator, so I know what it takes to keep software running after it ships.",
+        "My background in systems administration helps me build applications that are reliable and easy to support.",
 
         "My main project at work is a real-time data collection application that tracks 80+ Windows and Linux servers and workstations. " +
         "I built it full stack: an Angular front end, a .NET Web API with 900+ endpoints, SQL Server, and Azure DevOps to ship it.",
