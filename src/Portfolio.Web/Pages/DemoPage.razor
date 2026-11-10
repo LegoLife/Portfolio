@@ -23,7 +23,7 @@
 
     <nav class="more" aria-label="Other demos">
         <span class="kicker dim">More demos</span>
-        @foreach (var other in ProjectCatalog.Demos.Where(d => d.Id != _demo.Id))
+        @foreach (var other in ProjectCatalog.Demos.Where(d => d.Id != _demo.Id && d.LiveUrl is null))
         {
             <a href="@SiteRoute.ForDemo(other.Id)">@other.Name →</a>
         }
@@ -34,7 +34,6 @@
     /// <summary>The component that runs each demo in <see cref="ProjectCatalog.Demos"/>.</summary>
     private static readonly Dictionary<string, Type> Components = new()
     {
-        ["brickforge"] = typeof(BrickForgeDemo),
         ["listings"] = typeof(ListingsApp),
         ["dashboard"] = typeof(DashboardApp),
         ["datagen"] = typeof(DataGenApp),
@@ -43,8 +42,8 @@
 
     [Parameter, EditorRequired] public string? Id { get; set; }
 
-    private Project _demo = ProjectCatalog.Demos[0];
+    private Project _demo = ProjectCatalog.Demos.First(d => d.LiveUrl is null);
 
     protected override void OnParametersSet() =>
-        _demo = ProjectCatalog.Demos.FirstOrDefault(d => d.Id == Id) ?? ProjectCatalog.Demos[0];
+        _demo = ProjectCatalog.Demos.FirstOrDefault(d => d.Id == Id && d.LiveUrl is null) ?? ProjectCatalog.Demos.First(d => d.LiveUrl is null);
 }

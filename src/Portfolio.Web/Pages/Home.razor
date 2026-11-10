@@ -56,7 +56,7 @@
                 <div class="actions feature-actions">
                     @if (Featured.LiveUrl is not null)
                     {
-                        <a class="btn light" href="@SiteRoute.ForDemo(Featured.Id)">Try it here</a>
+                        <a class="btn light" href="@Featured.LiveUrl" target="_blank" rel="noopener">Open the app ↗</a>
                     }
                     @if (Featured.RepoUrl is not null)
                     {
@@ -66,7 +66,7 @@
             </div>
             @if (Featured.Image is not null)
             {
-                <a class="feature-shot" href="@(Featured.LiveUrl ?? Featured.Image)">
+                <a class="feature-shot" href="@(Featured.LiveUrl ?? Featured.Image)" target="_blank" rel="noopener">
                     <img src="@Featured.Image" alt="Screenshot of @Featured.Name" />
                 </a>
             }
@@ -151,7 +151,7 @@
         <div class="section-head">
             <div>
                 <h2>Live demos</h2>
-                <p class="muted section-sub">Small working apps that run right here in the page. This whole site is Blazor WebAssembly, so each one is C# running in your browser.</p>
+                <p class="muted section-sub">Small working apps you can try right now. Each one is Blazor, so it is C# running in your browser.</p>
             </div>
             <p class="mono dim">03 / Try them</p>
         </div>
@@ -159,11 +159,11 @@
         <div class="cards">
             @foreach (var demo in ProjectCatalog.Demos)
             {
-                <a class="panel card" href="@SiteRoute.ForDemo(demo.Id)">
+                <a class="panel card" href="@(demo.LiveUrl ?? SiteRoute.ForDemo(demo.Id))" target="@(demo.LiveUrl is null ? null : "_blank")" rel="@(demo.LiveUrl is null ? null : "noopener")">
                     <span class="mono dim tech">@string.Join(" · ", demo.Tech)</span>
                     <strong>@demo.Name</strong>
                     <span class="muted">@demo.Description</span>
-                    <span class="card-go accent">Open demo →</span>
+                    <span class="card-go accent">@(demo.LiveUrl is null ? "Open demo →" : "Open in a new window ↗")</span>
                 </a>
             }
         </div>

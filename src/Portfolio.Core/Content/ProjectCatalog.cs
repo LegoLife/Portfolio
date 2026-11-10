@@ -83,11 +83,11 @@ public static class ProjectCatalog
 
     ];
 
-    /// <summary>Small apps that run right here in the page. The id is the address: #/demos/{id}.</summary>
+    /// <summary>Small working apps. Most run right here in the page at #/demos/{id}; one with a LiveUrl opens its own site.</summary>
     public static readonly IReadOnlyList<Project> Demos =
     [
         new("brickforge", "BrickForge", "3D brick building in the browser",
-            "Snap bricks, plates and tiles onto a baseplate, then copy, paste and save whole structures. Runs live below.",
+            "Snap bricks, plates and tiles onto a baseplate, then copy, paste and save whole structures. Opens on its own site.",
             ["Blazor", "Three.js", "xUnit"], [], "orange", LiveUrl: "https://legolife.github.io/BrickForge/"),
         new("listings", "Real estate search", "Live filters over generated listings",
             "Filter generated listings by price, bedrooms, bathrooms, keyword and tags, and sort the results.",

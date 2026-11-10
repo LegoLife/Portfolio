@@ -206,11 +206,12 @@ public class SiteRouteTests
     [Theory]
     [InlineData("#/demos/nope")]
     [InlineData("#/elsewhere")]
+    [InlineData("#/demos/brickforge")]
     [InlineData("#<script>")]
     public void Anything_unknown_is_the_home_page(string hash) =>
         Assert.Equal(new SiteRoute(SitePage.Home), SiteRoute.Parse(hash));
 
     [Fact]
     public void Every_demo_has_an_address_that_finds_it() =>
-        Assert.All(ProjectCatalog.Demos, d => Assert.Equal(d.Id, SiteRoute.Parse(SiteRoute.ForDemo(d.Id)).DemoId));
+        Assert.All(ProjectCatalog.Demos.Where(d => d.LiveUrl is null), d => Assert.Equal(d.Id, SiteRoute.Parse(SiteRoute.ForDemo(d.Id)).DemoId));
 }
