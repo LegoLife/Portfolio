@@ -30,8 +30,7 @@ public static class Profile
     public const string Headline = "I build web systems that people rely on every day.";
 
     public const string Intro =
-        "C# and .NET on the back end, Angular and Blazor on the front, SQL Server underneath. " +
-        "I started as a system administrator, so I know what it takes to keep software running after it ships.";
+        "Full-stack developer working in C#, .NET, Angular, Blazor and SQL Server, with a background in systems administration.";
 
     /// <summary>The numbers shown beside the headline. Each one comes from the experience listed below.</summary>
     public static IReadOnlyList<(string Value, string Label)> Facts(DateTime today) =>
