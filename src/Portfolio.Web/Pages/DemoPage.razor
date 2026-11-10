@@ -1,0 +1,49 @@
+@* One live demo on its own page: a short description, then the working app. *@
+
+<div class="wrap page">
+    <div class="page-head">
+        <p class="mono dim"><a href="#demos">Live demos</a> / @_demo.Name</p>
+        <div class="page-title">
+            <div>
+                <h1>@_demo.Name</h1>
+                <p class="muted">@_demo.Description</p>
+            </div>
+            <ul class="chips mono">
+                @foreach (var tech in _demo.Tech)
+                {
+                    <li>@tech</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel demo-frame">
+        <DynamicComponent Type="Components[_demo.Id]" />
+    </div>
+
+    <nav class="more" aria-label="Other demos">
+        <span class="kicker dim">More demos</span>
+        @foreach (var other in ProjectCatalog.Demos.Where(d => d.Id != _demo.Id))
+        {
+            <a href="@SiteRoute.ForDemo(other.Id)">@other.Name →</a>
+        }
+    </nav>
+</div>
+
+@code {
+    /// <summary>The component that runs each demo in <see cref="ProjectCatalog.Demos"/>.</summary>
+    private static readonly Dictionary<string, Type> Components = new()
+    {
+        ["listings"] = typeof(ListingsApp),
+        ["dashboard"] = typeof(DashboardApp),
+        ["datagen"] = typeof(DataGenApp),
+        ["invest"] = typeof(InvestApp),
+    };
+
+    [Parameter, EditorRequired] public string? Id { get; set; }
+
+    private Project _demo = ProjectCatalog.Demos[0];
+
+    protected override void OnParametersSet() =>
+        _demo = ProjectCatalog.Demos.FirstOrDefault(d => d.Id == Id) ?? ProjectCatalog.Demos[0];
+}

@@ -1,0 +1,189 @@
+@* The home page: introduction, projects, experience, live demos and contact, top to bottom. *@
+
+<section id="top" class="band">
+    <div class="wrap hero">
+        <div class="hero-text">
+            <p class="kicker accent">@Profile.Role · @Profile.Location</p>
+            <h1>@Profile.Headline</h1>
+            <p class="hero-intro">@Profile.Intro</p>
+            <div class="actions">
+                <a class="btn primary" href="#work">See my work</a>
+                <a class="btn" href="mailto:@Profile.Email">Email me</a>
+                <a class="btn" href="@Profile.GitHubUrl">GitHub</a>
+            </div>
+        </div>
+
+        <aside class="panel facts" aria-label="At a glance">
+            <div class="facts-head">
+                <img src="images/me.jpg" alt="@Profile.Name" width="64" height="64" />
+                <div>
+                    <strong>@CurrentJob.Title</strong>
+                    <span>@CurrentJob.Company · since @CurrentJob.Dates.Split(' ')[1]</span>
+                </div>
+            </div>
+            <dl class="facts-grid">
+                @foreach (var fact in Profile.Facts(_today))
+                {
+                    <div>
+                        <dt>@fact.Value</dt>
+                        <dd>@fact.Label</dd>
+                    </div>
+                }
+            </dl>
+        </aside>
+    </div>
+</section>
+
+<section id="work" class="band">
+    <div class="wrap section">
+        <div class="section-head">
+            <h2>Selected work</h2>
+            <p class="mono dim">01 / Projects I designed, built and run</p>
+        </div>
+
+        <article class="panel feature">
+            <div class="feature-text">
+                <p class="kicker accent">Featured · Open source</p>
+                <h3>@Featured.Name</h3>
+                <p class="muted">@Featured.Tagline. @Featured.Description</p>
+                <ul class="points">
+                    @foreach (var point in Featured.Highlights)
+                    {
+                        <li>@point</li>
+                    }
+                </ul>
+                <p class="mono dim tech">@string.Join(" · ", Featured.Tech)</p>
+                <div class="actions feature-actions">
+                    @if (Featured.LiveUrl is not null)
+                    {
+                        <a class="btn light" href="@Featured.LiveUrl">Open the app</a>
+                    }
+                    @if (Featured.RepoUrl is not null)
+                    {
+                        <a class="btn" href="@Featured.RepoUrl">View source</a>
+                    }
+                </div>
+            </div>
+            @if (Featured.Image is not null)
+            {
+                <a class="feature-shot" href="@(Featured.LiveUrl ?? Featured.Image)">
+                    <img src="@Featured.Image" alt="Screenshot of @Featured.Name" />
+                </a>
+            }
+        </article>
+
+        <div class="rows">
+            @for (var i = 1; i < ProjectCatalog.Apps.Count; i++)
+            {
+                var project = ProjectCatalog.Apps[i];
+                <article class="work">
+                    <span class="mono dim work-no">@((i + 1).ToString("00"))</span>
+                    <h3>@project.Name</h3>
+                    <div class="work-text">
+                        <p>@project.Tagline.</p>
+                        <p class="muted">@project.Description</p>
+                        <p class="mono dim tech">@string.Join(" · ", project.Tech)</p>
+                    </div>
+                    @if (project.Image is not null)
+                    {
+                        <a class="work-shot" href="@project.Image" target="_blank" rel="noopener" aria-label="Open the @project.Name screenshot at full size">
+                            <img src="@project.Image" alt="Screenshot of @project.Name" loading="lazy" />
+                        </a>
+                    }
+                </article>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="experience" class="band">
+    <div class="wrap section">
+        <div class="section-head">
+            <h2>Experience</h2>
+            <p class="mono dim">02 / @Profile.YearsInIt(_today)+ years in IT</p>
+        </div>
+
+        <div class="rows">
+            @foreach (var job in Profile.Jobs)
+            {
+                <article class="job">
+                    <div class="job-when">
+                        <span class="mono @(job == CurrentJob ? "accent" : "dim")">@job.Dates</span>
+                        <span class="muted">@job.Company · @job.Location</span>
+                    </div>
+                    <div class="job-what">
+                        <h3>@job.Title</h3>
+                        <ul class="points">
+                            @foreach (var point in job.Points)
+                            {
+                                <li>@point</li>
+                            }
+                        </ul>
+                    </div>
+                </article>
+            }
+        </div>
+
+        <div class="job extras">
+            <div class="job-when">
+                <span class="kicker dim">Education</span>
+                @foreach (var school in Profile.Schools)
+                {
+                    <strong>@school.Degree</strong>
+                    <span class="muted">@school.School · @school.Dates</span>
+                }
+            </div>
+            <div class="job-what">
+                <span class="kicker dim">Skills</span>
+                <ul class="chips">
+                    @foreach (var skill in Profile.Skills)
+                    {
+                        <li>@skill</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="demos" class="band">
+    <div class="wrap section">
+        <div class="section-head">
+            <div>
+                <h2>Live demos</h2>
+                <p class="muted section-sub">Small working apps that run right here in the page. This whole site is Blazor WebAssembly, so each one is C# running in your browser.</p>
+            </div>
+            <p class="mono dim">03 / Try them</p>
+        </div>
+
+        <div class="cards">
+            @foreach (var demo in ProjectCatalog.Demos)
+            {
+                <a class="panel card" href="@SiteRoute.ForDemo(demo.Id)">
+                    <span class="mono dim tech">@string.Join(" · ", demo.Tech)</span>
+                    <strong>@demo.Name</strong>
+                    <span class="muted">@demo.Description</span>
+                    <span class="card-go accent">Open demo →</span>
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="wrap contact">
+        <p class="mono dim">04 / Contact</p>
+        <h2>Have a system that needs building, or one that needs looking after?</h2>
+        <div class="actions">
+            <a class="btn primary" href="mailto:@Profile.Email">@Profile.Email</a>
+            <a class="btn" href="@Profile.GitHubUrl">github.com/@Profile.GitHubUser</a>
+            <a class="btn" href="@SiteRoute.ResumeHref">Resume</a>
+        </div>
+    </div>
+</section>
+
+@code {
+    private static readonly Project Featured = ProjectCatalog.Apps[0];
+    private static readonly Job CurrentJob = Profile.Jobs[0];
+    private readonly DateTime _today = DateTime.Today;
+}

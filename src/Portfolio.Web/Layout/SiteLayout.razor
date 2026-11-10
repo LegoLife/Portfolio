@@ -1,0 +1,71 @@
+@implements IDisposable
+@inject SiteService Nav
+
+@if (!Nav.Ready)
+{
+    return;
+}
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+    <div class="wrap top-row">
+        <a class="brand" href="#top">@Profile.Name</a>
+        <nav class="top-nav" aria-label="Sections">
+            <a href="#work">Work</a>
+            <a href="#experience">Experience</a>
+            <a href="#demos" class="@(Nav.Route.Page == SitePage.Demo ? "is-here" : "")">Live demos</a>
+            <a href="#contact">Contact</a>
+            <a href="@SiteRoute.ResumeHref" class="btn @(Nav.Route.Page == SitePage.Resume ? "is-here" : "")">Resume</a>
+        </nav>
+    </div>
+</header>
+
+<main id="main">
+    @switch (Nav.Route.Page)
+    {
+        case SitePage.Resume:
+            <ResumePage />
+            break;
+        case SitePage.Demo:
+            <DemoPage @key="Nav.Route.DemoId" Id="@Nav.Route.DemoId" />
+            break;
+        default:
+            <Home />
+            break;
+    }
+</main>
+
+<footer class="foot">
+    <div class="wrap foot-row">
+        <span>@Profile.Name · @Profile.Location</span>
+        <span class="mono">Built with Blazor WebAssembly · .NET 10</span>
+    </div>
+</footer>
+
+@code {
+    private bool _scroll;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Nav.InitAsync();
+        Nav.Changed += OnAddressChanged;
+        _scroll = Nav.Route.Anchor is not null;   // a link such as /#work should land on that section
+    }
+
+    private void OnAddressChanged()
+    {
+        _scroll = true;
+        InvokeAsync(StateHasChanged);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // Scroll after the new page is on screen, so the section being asked for exists.
+        if (!_scroll) return;
+        _scroll = false;
+        await Nav.ShowAsync(Nav.Route.Anchor);
+    }
+
+    public void Dispose() => Nav.Changed -= OnAddressChanged;
+}

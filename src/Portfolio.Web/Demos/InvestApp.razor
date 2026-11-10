@@ -58,6 +58,6 @@
     private static ChartSeries[] Series(InvestmentResult result) =>
     [
         new("Value", "var(--blue)", result.Yearly.Select(p => p.Value).ToList()),
-        new("Put in", "var(--orange)", result.Yearly.Select(p => p.Invested).ToList()),
+        new("Put in", "var(--amber)", result.Yearly.Select(p => p.Invested).ToList()),
     ];
 }

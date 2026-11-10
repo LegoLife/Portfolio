@@ -4,25 +4,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0B0C0E" />
     <title>Jake Steffen · Software Developer</title>
-    <meta name="description" content="Jake Steffen is a software developer working in C#, .NET, Angular, Blazor and SQL Server. This portfolio is a small desktop you can click around in." />
+    <meta name="description" content="Jake Steffen is a software developer working in C#, .NET, Angular, Blazor and SQL Server. Projects, experience and live demos you can try in the browser." />
     <meta property="og:title" content="Jake Steffen · Software Developer" />
-    <meta property="og:description" content="A portfolio you can click around in: resume, projects and live apps on a tiny desktop built with Blazor." />
+    <meta property="og:description" content="Projects, experience and live demos you can try in the browser. Built with Blazor WebAssembly." />
     <meta property="og:type" content="website" />
     <base href="/" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <script>
-        // Set the theme before anything paints so there is no flash.
-        (() => {
-            let theme = null;
-            try { theme = localStorage.getItem('jakeos.theme'); } catch { }
-            if (!theme) theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
-            document.documentElement.dataset.theme = theme;
-        })();
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="preload" id="webassembly" />
     <link rel="stylesheet" href="css/app.css" />
     <script type="importmap"></script>
@@ -30,21 +23,20 @@
 
 <body>
     <div id="app">
-        <!-- Shown while the .NET runtime downloads. Blazor replaces it when the desktop is ready. -->
+        <!-- Shown while the .NET runtime downloads. Blazor replaces it when the page is ready. -->
         <main class="boot">
             <div class="boot-card">
-                <p class="boot-os">jakeOS</p>
-                <h1>Jake Steffen</h1>
                 <p class="boot-role">Software Developer · C# / .NET · Angular · Blazor · SQL Server</p>
-                <div class="boot-bar" role="progressbar" aria-label="Starting the desktop"><span></span></div>
-                <p class="boot-status">Starting the desktop<span class="boot-pct"></span></p>
+                <h1>Jake Steffen</h1>
+                <div class="boot-bar" role="progressbar" aria-label="Loading the site"><span></span></div>
+                <p class="boot-status">Loading<span class="boot-pct"></span></p>
                 <p class="boot-links">
                     In a hurry?
                     <a href="mailto:jsteffen182@gmail.com">Email me</a>
                     <a href="https://github.com/LegoLife">GitHub</a>
                 </p>
                 <noscript>
-                    <p>This portfolio is an interactive desktop and needs JavaScript. You can still reach me at
+                    <p>This site needs JavaScript to run. You can still reach me at
                         jsteffen182@gmail.com or see my code at github.com/LegoLife.</p>
                 </noscript>
             </div>
@@ -56,7 +48,7 @@
         <a href="." class="reload">Reload</a>
         <span class="dismiss">✕</span>
     </div>
-    <script src="js/desktop.js"></script>
+    <script src="js/site.js"></script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
 </body>
 

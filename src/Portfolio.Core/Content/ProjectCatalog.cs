@@ -10,8 +10,7 @@ public sealed record Project(
     string Accent,
     string? Image = null,
     string? LiveUrl = null,
-    string? RepoUrl = null,
-    string? AppId = null);
+    string? RepoUrl = null);
 
 public static class ProjectCatalog
 {
@@ -28,8 +27,7 @@ public static class ProjectCatalog
             ],
             "orange", "images/projects/brickforge.jpg",
             LiveUrl: "https://legolife.github.io/BrickForge/",
-            RepoUrl: "https://github.com/LegoLife/BrickForge",
-            AppId: "brickforge"),
+            RepoUrl: "https://github.com/LegoLife/BrickForge"),
 
         new("jnotes", "JNotes", "A self-hosted notes app that an AI assistant can read and write",
             "A notes app that runs in Docker on a Raspberry Pi, with a rich-text editor, full-text search, version history and nightly backups. " +
@@ -40,7 +38,7 @@ public static class ProjectCatalog
                 "Full-text search with a Ctrl+K switcher, templates, attachments and drag-to-reorder folders",
                 "Migrated 106 pages from a previous notes tool with a custom importer",
             ],
-            "purple"),
+            "purple", "images/projects/jnotes.jpg"),
 
         new("jtools", "JTools", "Three everyday developer tools in one Windows tray app",
             "A live log viewer that tails several files in tabs and highlights lines such as ERROR and WARN, a text expander that works in any app, and a .NET regex tester. " +
@@ -62,16 +60,7 @@ public static class ProjectCatalog
                 "Scheduled price updates from a market data API",
                 "One-command ARM64 deploy to a home server, with rollback",
             ],
-            "green"),
-
-        new("menuplanner", "MenuPlanner", "Generates the family menu so nobody has to ask what's for dinner",
-            "Builds the household menu. It runs in Docker on a Raspberry Pi behind a login.",
-            ["Blazor Server", ".NET 10", "MudBlazor", "EF Core", "SQLite", "Docker"],
-            [
-                "Small, focused and quick on low-power hardware",
-                "Cookie login and a containerised deploy",
-            ],
-            "yellow"),
+            "green", "images/projects/buywindow.jpg"),
 
         new("giftplanner", "GiftPlanner", "Kids' gift lists where each relative sees only their part",
             "One master list per child, with each gift assigned to a group of givers. Each group gets a private share link and sees only its own gifts, with no account needed. " +
@@ -82,23 +71,32 @@ public static class ProjectCatalog
                 "Product lookup from store pages using structured data",
                 "Nightly backups",
             ],
-            "red"),
+            "red", "images/projects/giftplanner.jpg"),
+        new("menuplanner", "MenuPlanner", "Generates the family menu so nobody has to ask what's for dinner",
+            "Builds the household menu. It runs in Docker on a Raspberry Pi behind a login.",
+            ["Blazor Server", ".NET 10", "MudBlazor", "EF Core", "SQLite", "Docker"],
+            [
+                "Small, focused and quick on low-power hardware",
+                "Cookie login and a containerised deploy",
+            ],
+            "yellow", "images/projects/menuplanner.jpg"),
+
     ];
 
-    /// <summary>Small apps that run right here on the desktop.</summary>
+    /// <summary>Small apps that run right here in the page. The id is the address: #/demos/{id}.</summary>
     public static readonly IReadOnlyList<Project> Demos =
     [
-        new("listings", "Listings", "Real estate search with live filters",
+        new("listings", "Real estate search", "Live filters over generated listings",
             "Filter generated listings by price, bedrooms, bathrooms, keyword and tags, and sort the results.",
-            ["Blazor", "C#"], [], "green", AppId: "listings"),
-        new("dashboard", "Dashboard", "An admin dashboard",
+            ["Blazor", "C#", "xUnit"], [], "green"),
+        new("dashboard", "Admin dashboard", "Charts and data grids",
             "Charts drawn in SVG, plus sortable, searchable, paged grids over users, products and 1,000 orders.",
-            ["Blazor", "SVG", "REST"], [], "blue", AppId: "dashboard"),
-        new("datagen", "DataGen", "Sample data generator",
+            ["Blazor", "SVG", "REST"], [], "blue"),
+        new("datagen", "Data generator", "Sample data as JSON, C# or CSV",
             "Describe the fields you need and get rows of realistic sample data as JSON, C# or CSV.",
-            ["Blazor", "C#"], [], "purple", AppId: "datagen"),
-        new("invest", "Invest", "Investment growth calculator",
+            ["Blazor", "C#", "xUnit"], [], "purple"),
+        new("invest", "Investment calculator", "Compound growth, charted",
             "Projects the value of a starting balance plus monthly contributions, and charts it year by year.",
-            ["Blazor", "SVG"], [], "yellow", AppId: "invest"),
+            ["Blazor", "SVG"], [], "yellow"),
     ];
 }

@@ -1,12 +1,18 @@
-@inject DesktopService Desk
+@inject SiteService Site
 
-<div class="app-toolbar">
-    <button type="button" class="btn primary small" @onclick="@(() => Desk.PrintAsync("#resume-doc", "Jake Steffen - Resume"))">Print or save as PDF</button>
-    <a class="btn small" href="mailto:@Profile.Email">Email me</a>
-    <span class="muted toolbar-note">Link straight here with <code>#resume</code></span>
-</div>
+<div class="wrap page">
+    <div class="page-head">
+        <p class="mono dim"><a href="#top">Home</a> / Resume</p>
+        <div class="page-title">
+            <h1>Resume</h1>
+            <div class="actions">
+                <button type="button" class="btn primary" @onclick="@(() => Site.PrintAsync("#resume-doc", "Jake Steffen - Resume"))">Print or save as PDF</button>
+                <a class="btn" href="mailto:@Profile.Email">Email me</a>
+            </div>
+        </div>
+    </div>
 
-<div class="app resume-wrap">
+<div class="panel resume-wrap">
     <article class="resume" id="resume-doc">
         <header class="resume-head">
             <h1>@Profile.Name</h1>
@@ -81,6 +87,7 @@
             }
         </section>
     </article>
+</div>
 </div>
 
 @code {

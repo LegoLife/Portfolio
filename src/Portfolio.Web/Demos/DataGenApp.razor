@@ -1,4 +1,4 @@
-@inject DesktopService Desk
+@inject SiteService Site
 
 <div class="split">
     <aside class="side" aria-label="Fields">
@@ -8,9 +8,7 @@
             {
                 <li>
                     <span><strong>@field.Name</strong><span class="muted">@field.Type</span></span>
-                    <button type="button" class="win-btn" aria-label="Remove @field.Name" @onclick="() => Remove(field)">
-                        <AppIcon Name="close" Size="12" />
-                    </button>
+                    <button type="button" class="icon-btn" aria-label="Remove @field.Name" @onclick="() => Remove(field)">×</button>
                 </li>
             }
             @if (_fields.Count == 0)
@@ -57,7 +55,7 @@
             <button type="button" class="btn primary small" disabled="@(_fields.Count == 0)" @onclick="Generate">Generate</button>
             <button type="button" class="btn small" disabled="@(_output.Length == 0)" @onclick="Copy">@(_copied ? "Copied" : "Copy")</button>
             <button type="button" class="btn small" disabled="@(_output.Length == 0)"
-                    @onclick="() => Desk.DownloadAsync(DataGenerator.FileName(_format), _output)">Download</button>
+                    @onclick="() => Site.DownloadAsync(DataGenerator.FileName(_format), _output)">Download</button>
         </div>
         <pre class="code" tabindex="0" aria-label="Generated output">@(_output.Length > 0 ? _output : "Add some fields, then press Generate.")</pre>
     </div>
@@ -109,7 +107,7 @@
 
     private async Task Copy()
     {
-        await Desk.CopyAsync(_output);
+        await Site.CopyAsync(_output);
         _copied = true;
         StateHasChanged();
         await Task.Delay(1500);

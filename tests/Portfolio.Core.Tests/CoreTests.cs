@@ -1,98 +1,8 @@
 using Portfolio.Core.Content;
 using Portfolio.Core.Demos;
-using Portfolio.Core.Desktop;
-using Portfolio.Core.Terminal;
+using Portfolio.Core.Site;
 
 namespace Portfolio.Core.Tests;
-
-public class WindowManagerTests
-{
-    private static WindowManager Desktop()
-    {
-        var manager = new WindowManager();
-        manager.SetViewport(1280, 800);
-        return manager;
-    }
-
-    [Fact]
-    public void Opening_an_app_twice_keeps_one_window_and_brings_it_forward()
-    {
-        var desktop = Desktop();
-        desktop.Open("about");
-        desktop.Open("resume");
-        desktop.Open("about");
-
-        Assert.Equal(2, desktop.Windows.Count);
-        Assert.Equal("about", desktop.Active!.Id);
-    }
-
-    [Fact]
-    public void Unknown_apps_do_not_open()
-    {
-        var desktop = Desktop();
-        Assert.Null(desktop.Open("nope"));
-        Assert.Empty(desktop.Windows);
-    }
-
-    [Fact]
-    public void Taskbar_toggle_minimises_the_active_window_and_restores_others()
-    {
-        var desktop = Desktop();
-        desktop.Open("about");
-        desktop.Open("resume");
-
-        desktop.Toggle("resume");
-        Assert.True(desktop.Get("resume")!.Minimized);
-        Assert.Equal("about", desktop.Active!.Id);
-
-        desktop.Toggle("resume");
-        Assert.False(desktop.Get("resume")!.Minimized);
-        Assert.Equal("resume", desktop.Active!.Id);
-    }
-
-    [Fact]
-    public void New_windows_fit_inside_a_small_screen()
-    {
-        var desktop = new WindowManager();
-        desktop.SetViewport(800, 600);
-        var window = desktop.Open("brickforge")!;
-
-        Assert.True(window.Width <= 800);
-        Assert.True(window.Height <= 600 - WindowManager.TaskbarHeight);
-        Assert.True(window.X >= 0 && window.Y >= 0);
-    }
-
-    [Fact]
-    public void A_window_cannot_be_dragged_out_of_reach()
-    {
-        var desktop = Desktop();
-        var window = desktop.Open("contact")!;
-
-        desktop.MoveResize("contact", 5000, 5000, window.Width, window.Height);
-        Assert.True(window.X < 1280);
-        Assert.True(window.Y < 800 - WindowManager.TaskbarHeight);
-
-        desktop.MoveResize("contact", -5000, -5000, 10, 10);
-        Assert.True(window.X + window.Width > 0);
-        Assert.Equal(0, window.Y);
-        Assert.Equal(WindowManager.MinWidth, window.Width);
-        Assert.Equal(WindowManager.MinHeight, window.Height);
-    }
-
-    [Fact]
-    public void Changes_raise_the_changed_event()
-    {
-        var desktop = Desktop();
-        var count = 0;
-        desktop.Changed += () => count++;
-
-        desktop.Open("about");
-        desktop.Minimize("about");
-        desktop.Close("about");
-
-        Assert.Equal(3, count);
-    }
-}
 
 public class InvestmentCalculatorTests
 {
@@ -265,58 +175,6 @@ public class ListingTests
     }
 }
 
-public class TerminalShellTests
-{
-    private readonly TerminalShell _shell = new(() => new DateTime(2026, 11, 10));
-
-    [Fact]
-    public void Open_asks_the_desktop_to_open_the_app()
-    {
-        Assert.Equal("resume", _shell.Execute("open resume").OpenApp);
-        Assert.Equal("resume", _shell.Execute("  OPEN   Resume ").OpenApp);
-    }
-
-    [Fact]
-    public void Unknown_commands_and_apps_print_an_error()
-    {
-        Assert.Equal(LineKind.Error, _shell.Execute("frobnicate").Lines.Single().Kind);
-        Assert.Equal(LineKind.Error, _shell.Execute("open nothing").Lines.Single().Kind);
-        Assert.Null(_shell.Execute("open nothing").OpenApp);
-    }
-
-    [Fact]
-    public void Theme_accepts_only_known_themes()
-    {
-        Assert.Equal("night", _shell.Execute("theme night").Theme);
-        Assert.Null(_shell.Execute("theme plaid").Theme);
-    }
-
-    [Fact]
-    public void Resume_prints_every_job()
-    {
-        var text = string.Join('\n', _shell.Execute("resume").Lines.Select(l => l.Text));
-        Assert.All(Profile.Jobs, job => Assert.Contains(job.Title, text));
-    }
-
-    [Fact]
-    public void Clear_exit_and_blank_input_print_nothing()
-    {
-        Assert.True(_shell.Execute("clear").Clear);
-        Assert.True(_shell.Execute("exit").Exit);
-        Assert.Empty(_shell.Execute("   ").Lines);
-    }
-
-    [Theory]
-    [InlineData("res", "resume")]
-    [InlineData("op", "open ")]
-    [InlineData("open bri", "open brickforge")]
-    [InlineData("theme n", "theme night")]
-    [InlineData("open d", "open d")]      // dashboard and datagen both match
-    [InlineData("zzz", "zzz")]
-    public void Tab_completes_when_there_is_exactly_one_match(string typed, string expected) =>
-        Assert.Equal(expected, TerminalShell.Complete(typed));
-}
-
 public class ContentTests
 {
     [Fact]
@@ -326,17 +184,33 @@ public class ContentTests
         Assert.Equal(7, Profile.YearsDeveloping(new DateTime(2026, 3, 31)));
         Assert.Equal(11, Profile.YearsInIt(new DateTime(2026, 11, 10)));
     }
+}
+
+public class SiteRouteTests
+{
+    [Theory]
+    [InlineData("", SitePage.Home, null, null)]
+    [InlineData("#work", SitePage.Home, null, "work")]
+    [InlineData("#/resume", SitePage.Resume, null, null)]
+    [InlineData("#/demos/datagen", SitePage.Demo, "datagen", null)]
+    [InlineData("#/demos/DataGen/", SitePage.Demo, "datagen", null)]
+    public void Addresses_map_to_pages(string hash, SitePage page, string? demo, string? anchor) =>
+        Assert.Equal(new SiteRoute(page, demo, anchor), SiteRoute.Parse(hash));
+
+    [Theory]
+    [InlineData("#resume", SitePage.Resume, null)]
+    [InlineData("#listings", SitePage.Demo, "listings")]
+    public void Links_to_the_old_desktop_still_land_somewhere_useful(string hash, SitePage page, string? demo) =>
+        Assert.Equal(new SiteRoute(page, demo), SiteRoute.Parse(hash));
+
+    [Theory]
+    [InlineData("#/demos/nope")]
+    [InlineData("#/elsewhere")]
+    [InlineData("#<script>")]
+    public void Anything_unknown_is_the_home_page(string hash) =>
+        Assert.Equal(new SiteRoute(SitePage.Home), SiteRoute.Parse(hash));
 
     [Fact]
-    public void Every_project_that_opens_an_app_names_a_real_app()
-    {
-        var linked = ProjectCatalog.Apps.Concat(ProjectCatalog.Demos).Where(p => p.AppId is not null);
-        Assert.All(linked, p => Assert.NotNull(AppCatalog.Find(p.AppId)));
-    }
-
-    [Fact]
-    public void App_ids_are_unique()
-    {
-        Assert.Equal(AppCatalog.All.Count, AppCatalog.All.Select(a => a.Id).Distinct().Count());
-    }
+    public void Every_demo_has_an_address_that_finds_it() =>
+        Assert.All(ProjectCatalog.Demos, d => Assert.Equal(d.Id, SiteRoute.Parse(SiteRoute.ForDemo(d.Id)).DemoId));
 }

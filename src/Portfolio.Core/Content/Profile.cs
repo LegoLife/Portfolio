@@ -4,7 +4,7 @@ public sealed record Job(string Title, string Company, string Location, string D
 
 public sealed record Education(string Degree, string School, string Dates);
 
-/// <summary>Everything the site says about Jake. The resume, the About window and the terminal all read from here.</summary>
+/// <summary>Everything the site says about Jake. The home page and the resume both read from here.</summary>
 public static class Profile
 {
     public const string Name = "Jake Steffen";
@@ -27,8 +27,20 @@ public static class Profile
         return Math.Max(years, 0);
     }
 
-    public const string Headline =
-        "I build web systems that people rely on every day: C# and .NET on the back end, Angular and Blazor on the front, SQL Server underneath.";
+    public const string Headline = "I build web systems that people rely on every day.";
+
+    public const string Intro =
+        "C# and .NET on the back end, Angular and Blazor on the front, SQL Server underneath. " +
+        "I started as a system administrator, so I know what it takes to keep software running after it ships.";
+
+    /// <summary>The numbers shown beside the headline. Each one comes from the experience listed below.</summary>
+    public static IReadOnlyList<(string Value, string Label)> Facts(DateTime today) =>
+    [
+        ($"{YearsDeveloping(today)}+", "years building web systems"),
+        ("900+", "Web API endpoints in one app"),
+        ("80+", "servers tracked in real time"),
+        ("20+", "C# data integration apps"),
+    ];
 
     public static IReadOnlyList<string> Summary(DateTime today) =>
     [
@@ -39,7 +51,7 @@ public static class Profile
         "I built it full stack: an Angular front end, a .NET Web API with 900+ endpoints, SQL Server, and Azure DevOps to ship it.",
 
         "I also write and maintain 20+ C# applications that pull data from outside APIs and store it reliably. " +
-        "Outside of work I build things for my family and for fun. Most of them are on this desktop.",
+        "Outside of work I build things for my family and for fun. Most of them are on this site.",
     ];
 
     public static readonly IReadOnlyList<string> Skills =
