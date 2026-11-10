@@ -318,6 +318,10 @@ select.input { padding: 4px 8px; }
 .resume-tech { color: var(--dim); font-size: 13px; }
 
 /* ---------- Demos ---------- */
+/* BrickForge, embedded */
+.embed-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 10px 16px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.embed-frame { width: 100%; height: min(78vh, 760px); min-height: 480px; border: 0; display: block; background: var(--bg); }
+
 /* Listings */
 .result-count { font-size: 14px; color: var(--muted); }
 .home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }

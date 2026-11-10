@@ -56,7 +56,7 @@
                 <div class="actions feature-actions">
                     @if (Featured.LiveUrl is not null)
                     {
-                        <a class="btn light" href="@Featured.LiveUrl">Open the app</a>
+                        <a class="btn light" href="@SiteRoute.ForDemo(Featured.Id)">Try it here</a>
                     }
                     @if (Featured.RepoUrl is not null)
                     {
