@@ -312,10 +312,12 @@ select.input { padding: 4px 8px; }
 .resume-job-head span { font: 12px var(--mono); color: var(--dim); }
 .resume-company { color: var(--muted); font-size: 14px; }
 .resume-job ul { list-style: disc; padding-left: 18px; margin-top: 8px; display: grid; gap: 6px; color: var(--muted); font-size: 15px; }
-.resume-projects { display: grid; gap: 8px; color: var(--muted); font-size: 15px; }
+.resume-projects { display: grid; gap: 12px; color: var(--muted); font-size: 15px; }
+.resume-project-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 12px; }
+.resume-project-head a { font: 12px var(--mono); color: var(--muted); }
 .resume-projects strong { color: var(--text); }
 .resume-projects a { text-decoration: underline; text-underline-offset: 3px; }
-.resume-tech { color: var(--dim); font-size: 13px; }
+.resume-tech { display: block; color: var(--dim); font: 12px var(--mono); margin-top: 2px; }
 
 /* ---------- Demos ---------- */
 /* Listings */

@@ -36,6 +36,8 @@ li { margin-bottom: 1pt; }
 .resume-company { color: #333; font-style: italic; }
 .resume-projects { list-style: none; padding: 0; }
 .resume-tech { color: #444; }
-.resume-tech::before { content: "("; }
-.resume-tech::after { content: ")"; }
-.resume-projects a { margin-left: 4pt; text-decoration: underline; }
+.resume-projects li { margin-bottom: 4pt; }
+.resume-projects p { margin: 0; }
+.resume-project-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; }
+.resume-project-head a { color: #333; }
+.resume-tech::before { content: " · "; }

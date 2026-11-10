@@ -65,11 +65,14 @@
                 @foreach (var project in ProjectCatalog.Apps.Take(4))
                 {
                     <li>
-                        <strong>@project.Name.</strong> @project.Tagline. <span class="resume-tech">@string.Join(", ", project.Tech.Take(4))</span>
-                        @if (project.LiveUrl is not null)
-                        {
-                            <a href="@project.LiveUrl">@project.LiveUrl.Replace("https://", "").TrimEnd('/')</a>
-                        }
+                        <div class="resume-project-head">
+                            <strong>@project.Name</strong>
+                            @if (project.LiveUrl is not null)
+                            {
+                                <a href="@project.LiveUrl">@project.LiveUrl.Replace("https://", "").TrimEnd('/')</a>
+                            }
+                        </div>
+                        <p>@project.Tagline. <span class="resume-tech">@string.Join(" · ", project.Tech.Take(4))</span></p>
                     </li>
                 }
             </ul>
