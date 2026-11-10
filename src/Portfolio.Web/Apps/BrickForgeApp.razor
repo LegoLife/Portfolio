@@ -1,0 +1,31 @@
+@* BrickForge is its own site. It is loaded only when asked for, because it starts a second .NET runtime. *@
+<div class="embed">
+    @if (_running)
+    {
+        <div class="app-toolbar">
+            <span class="muted toolbar-note">Running live from @Host</span>
+            <a class="btn small" href="@Project.LiveUrl" target="_blank" rel="noopener">Open full screen <AppIcon Name="external" Size="14" /></a>
+        </div>
+        <iframe src="@Project.LiveUrl" title="BrickForge" allow="fullscreen"></iframe>
+    }
+    else
+    {
+        <div class="embed-poster" style="background-image:url('@Project.Image')">
+            <div class="embed-card">
+                <h3 class="display">BrickForge</h3>
+                <p>@Project.Tagline. Built with @string.Join(", ", Project.Tech.Take(3)).</p>
+                <div class="actions">
+                    <button type="button" class="btn primary" @onclick="() => _running = true">Launch it in this window</button>
+                    <a class="btn" href="@Project.RepoUrl" target="_blank" rel="noopener">Source <AppIcon Name="external" Size="14" /></a>
+                </div>
+                <p class="muted small-print">The first launch takes a few seconds.</p>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private static readonly Project Project = ProjectCatalog.Apps.First(p => p.Id == "brickforge");
+    private static readonly string Host = new Uri(Project.LiveUrl!).Host;
+    private bool _running;
+}

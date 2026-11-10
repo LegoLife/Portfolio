@@ -1,0 +1,63 @@
+<div class="split">
+    <aside class="side" aria-label="Inputs">
+        <label class="field">
+            <span>Starting balance ($)</span>
+            <input class="input" type="number" min="0" step="100" @bind="_balance" @bind:event="oninput" />
+        </label>
+        <label class="field">
+            <span>Share price today ($)</span>
+            <input class="input" type="number" min="0" step="0.01" @bind="_initialPrice" @bind:event="oninput" />
+        </label>
+        <label class="field">
+            <span>Projected share price ($)</span>
+            <input class="input" type="number" min="0" step="0.01" @bind="_projectedPrice" @bind:event="oninput" />
+        </label>
+        <label class="field">
+            <span>Years</span>
+            <input class="input" type="number" min="1" max="@InvestmentCalculator.MaxYears" step="1" @bind="_years" @bind:event="oninput" />
+        </label>
+        <label class="field">
+            <span>Added each month ($)</span>
+            <input class="input" type="number" min="0" step="50" @bind="_monthly" @bind:event="oninput" />
+        </label>
+        <p class="muted small-print">An illustration of compound growth at a steady rate. Real prices don't move this smoothly, and this isn't financial advice.</p>
+    </aside>
+
+    <div class="main">
+        @{ var result = InvestmentCalculator.Calculate(new(_balance, _initialPrice, _projectedPrice, _years, _monthly)); }
+        @if (result is null)
+        {
+            <div class="empty">
+                <p>Enter prices above zero and between 1 and @InvestmentCalculator.MaxYears years to see a projection.</p>
+            </div>
+        }
+        else
+        {
+            <ul class="stats wide">
+                <li><strong>@Fmt.Money(result.FinalValue)</strong><span>value after @_years @(_years == 1 ? "year" : "years")</span></li>
+                <li><strong>@Fmt.Money(result.TotalInvested)</strong><span>put in</span></li>
+                <li><strong>@Fmt.Money(result.Profit)</strong><span>growth</span></li>
+                <li><strong>@Fmt.Number(result.CagrPercent, 2)%</strong><span>growth per year (CAGR)</span></li>
+            </ul>
+
+            <h4 class="section-title">Value by year</h4>
+            <Chart Title="Portfolio value and amount invested by year" Format="Fmt.CompactMoney"
+                   Labels="@result.Yearly.Select(p => p.Year.ToString()).ToList()"
+                   Series="@Series(result)" />
+        }
+    </div>
+</div>
+
+@code {
+    private double _balance = 20000;
+    private double _initialPrice = 262.67;
+    private double _projectedPrice = 12000;
+    private int _years = 10;
+    private double _monthly = 600;
+
+    private static ChartSeries[] Series(InvestmentResult result) =>
+    [
+        new("Value", "var(--blue)", result.Yearly.Select(p => p.Value).ToList()),
+        new("Put in", "var(--orange)", result.Yearly.Select(p => p.Invested).ToList()),
+    ];
+}

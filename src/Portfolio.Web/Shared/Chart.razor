@@ -1,0 +1,97 @@
+@* A small line or grouped-bar chart drawn as SVG. No chart library. *@
+<figure class="chart">
+    <svg viewBox="0 0 @W @H" role="img" aria-label="@Title">
+        @for (var i = 0; i <= Ticks; i++)
+        {
+            var value = _max * i / Ticks;
+            var y = Y(value);
+            @* Wrapped in <g> because a bare <text> tag means something else to Razor inside a code block. *@
+            <g>
+                <line class="chart-grid" x1="@Left" x2="@(W - Right)" y1="@N(y)" y2="@N(y)" />
+                <text class="chart-axis" x="@(Left - 8)" y="@N(y + 4)" text-anchor="end">@Format(value)</text>
+            </g>
+        }
+
+        @for (var i = 0; i < Labels.Count; i++)
+        {
+            if (i % _labelEvery != 0 && i != Labels.Count - 1) continue;
+            <g><text class="chart-axis" x="@N(Center(i))" y="@(H - 8)" text-anchor="middle">@Labels[i]</text></g>
+        }
+
+        @if (Bars)
+        {
+            var groupWidth = Slot * 0.72;
+            var barWidth = groupWidth / Series.Count;
+            for (var s = 0; s < Series.Count; s++)
+            {
+                var series = Series[s];
+                for (var i = 0; i < series.Values.Count; i++)
+                {
+                    var y = Y(series.Values[i]);
+                    <rect class="chart-bar" fill="@series.Color" x="@N(Center(i) - groupWidth / 2 + s * barWidth)" y="@N(y)"
+                          width="@N(barWidth - 2)" height="@N(Math.Max(0, Bottom - y))" rx="2">
+                        <title>@Labels[i] · @series.Name: @Format(series.Values[i])</title>
+                    </rect>
+                }
+            }
+        }
+        else
+        {
+            foreach (var series in Series)
+            {
+                <polyline class="chart-line" stroke="@series.Color"
+                          points="@string.Join(' ', series.Values.Select((v, i) => $"{N(Center(i))},{N(Y(v))}"))" />
+                @for (var i = 0; i < series.Values.Count; i++)
+                {
+                    <circle class="chart-dot" fill="@series.Color" cx="@N(Center(i))" cy="@N(Y(series.Values[i]))" r="@(series.Values.Count > 30 ? 2.5 : 4)">
+                        <title>@Labels[i] · @series.Name: @Format(series.Values[i])</title>
+                    </circle>
+                }
+            }
+        }
+        <line class="chart-base" x1="@Left" x2="@(W - Right)" y1="@Bottom" y2="@Bottom" />
+    </svg>
+    <figcaption>
+        @foreach (var series in Series)
+        {
+            <span class="chart-key"><i style="background:@series.Color"></i>@series.Name</span>
+        }
+    </figcaption>
+</figure>
+
+@code {
+    private const double W = 640, H = 260, Left = 64, Right = 16, Top = 14, Bottom = H - 30;
+    private const int Ticks = 4;
+
+    [Parameter, EditorRequired] public string Title { get; set; } = "";
+    [Parameter, EditorRequired] public IReadOnlyList<string> Labels { get; set; } = [];
+    [Parameter, EditorRequired] public IReadOnlyList<ChartSeries> Series { get; set; } = [];
+    [Parameter] public bool Bars { get; set; }
+    [Parameter] public Func<double, string> Format { get; set; } = v => Fmt.Compact(v);
+
+    private double _max = 1;
+    private int _labelEvery = 1;
+
+    private double Slot => (W - Left - Right) / Math.Max(1, Labels.Count);
+
+    protected override void OnParametersSet()
+    {
+        var highest = Series.SelectMany(s => s.Values).DefaultIfEmpty(1).Max();
+        _max = NiceCeiling(highest);
+        _labelEvery = Math.Max(1, (int)Math.Ceiling(Labels.Count / 11.0));
+    }
+
+    private double Center(int index) => Left + Slot * (index + 0.5);
+    private double Y(double value) => Bottom - value / _max * (Bottom - Top);
+    private static string N(double value) => value.ToString("0.#");
+
+    /// <summary>Rounds up to 1, 2, 2.5, 4, 5 or 8 times a power of ten, so the axis has tidy numbers.</summary>
+    private static double NiceCeiling(double value)
+    {
+        if (value <= 0 || double.IsNaN(value) || double.IsInfinity(value)) return 1;
+        var power = Math.Pow(10, Math.Floor(Math.Log10(value)));
+        foreach (var step in (double[])[1, 2, 2.5, 4, 5, 8, 10])
+            if (value <= step * power) return step * power;
+        return 10 * power;
+    }
+}

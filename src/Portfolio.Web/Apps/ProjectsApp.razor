@@ -1,0 +1,73 @@
+@inject DesktopService Desk
+
+<div class="app projects">
+    <h3 class="display">Things I've built</h3>
+    <p class="lead">Real apps first. Below those, four smaller ones that run right here on this desktop.</p>
+
+    <div class="project-list">
+        @foreach (var project in ProjectCatalog.Apps)
+        {
+            <article class="project accent-@project.Accent">
+                <div class="project-art">
+                    @if (project.Image is not null)
+                    {
+                        <img src="@project.Image" alt="Screenshot of @project.Name" loading="lazy" />
+                    }
+                    else
+                    {
+                        <span aria-hidden="true">@project.Name[..1]</span>
+                    }
+                </div>
+                <div class="project-body">
+                    <h4>@project.Name</h4>
+                    <p class="project-tagline">@project.Tagline</p>
+                    <p>@project.Description</p>
+                    <ul class="project-points">
+                        @foreach (var point in project.Highlights)
+                        {
+                            <li>@point</li>
+                        }
+                    </ul>
+                    <ul class="chips">
+                        @foreach (var tech in project.Tech)
+                        {
+                            <li>@tech</li>
+                        }
+                    </ul>
+                    <div class="actions">
+                        @if (project.AppId is not null)
+                        {
+                            <button type="button" class="btn primary small" @onclick="() => Desk.Open(project.AppId)">Open it here</button>
+                        }
+                        @if (project.LiveUrl is not null)
+                        {
+                            <a class="btn small" href="@project.LiveUrl" target="_blank" rel="noopener">Live site <AppIcon Name="external" Size="14" /></a>
+                        }
+                        @if (project.RepoUrl is not null)
+                        {
+                            <a class="btn small" href="@project.RepoUrl" target="_blank" rel="noopener">Source <AppIcon Name="external" Size="14" /></a>
+                        }
+                        else
+                        {
+                            <span class="muted private-note">Private repository</span>
+                        }
+                    </div>
+                </div>
+            </article>
+        }
+    </div>
+
+    <h3 class="section-title">Running on this desktop</h3>
+    <div class="demo-list">
+        @foreach (var demo in ProjectCatalog.Demos)
+        {
+            <button type="button" class="demo accent-@demo.Accent" @onclick="() => Desk.Open(demo.AppId!)">
+                <span class="icon-tile accent-@demo.Accent"><AppIcon Name="@demo.AppId" Size="24" /></span>
+                <span class="demo-text">
+                    <strong>@demo.Name</strong>
+                    <span>@demo.Description</span>
+                </span>
+            </button>
+        }
+    </div>
+</div>

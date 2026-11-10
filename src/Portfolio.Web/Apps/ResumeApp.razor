@@ -1,0 +1,88 @@
+@inject DesktopService Desk
+
+<div class="app-toolbar">
+    <button type="button" class="btn primary small" @onclick="@(() => Desk.PrintAsync("#resume-doc", "Jake Steffen - Resume"))">Print or save as PDF</button>
+    <a class="btn small" href="mailto:@Profile.Email">Email me</a>
+    <span class="muted toolbar-note">Link straight here with <code>#resume</code></span>
+</div>
+
+<div class="app resume-wrap">
+    <article class="resume" id="resume-doc">
+        <header class="resume-head">
+            <h1>@Profile.Name</h1>
+            <p class="resume-role">@Profile.Role</p>
+            <p class="resume-contact">
+                <span>@Profile.Location</span>
+                <a href="mailto:@Profile.Email">@Profile.Email</a>
+                <a href="@Profile.GitHubUrl">github.com/@Profile.GitHubUser</a>
+            </p>
+        </header>
+
+        <section>
+            <h2>Summary</h2>
+            <p>@Profile.Summary(_today)[0]</p>
+        </section>
+
+        <section>
+            <h2>Skills</h2>
+            <ul class="resume-skills">
+                @foreach (var skill in Profile.Skills)
+                {
+                    <li>@skill</li>
+                }
+            </ul>
+        </section>
+
+        <section>
+            <h2>Experience</h2>
+            @foreach (var job in Profile.Jobs)
+            {
+                <div class="resume-job">
+                    <div class="resume-job-head">
+                        <h3>@job.Title</h3>
+                        <span>@job.Dates</span>
+                    </div>
+                    <p class="resume-company">@job.Company · @job.Location</p>
+                    <ul>
+                        @foreach (var point in job.Points)
+                        {
+                            <li>@point</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </section>
+
+        <section>
+            <h2>Selected projects</h2>
+            <ul class="resume-projects">
+                @foreach (var project in ProjectCatalog.Apps.Take(4))
+                {
+                    <li>
+                        <strong>@project.Name.</strong> @project.Tagline. <span class="resume-tech">@string.Join(", ", project.Tech.Take(4))</span>
+                        @if (project.LiveUrl is not null)
+                        {
+                            <a href="@project.LiveUrl">@project.LiveUrl.Replace("https://", "").TrimEnd('/')</a>
+                        }
+                    </li>
+                }
+            </ul>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            @foreach (var school in Profile.Schools)
+            {
+                <div class="resume-job-head">
+                    <h3>@school.Degree</h3>
+                    <span>@school.Dates</span>
+                </div>
+                <p class="resume-company">@school.School</p>
+            }
+        </section>
+    </article>
+</div>
+
+@code {
+    private readonly DateTime _today = DateTime.Today;
+}

@@ -1,0 +1,38 @@
+@inject DesktopService Desk
+
+<div class="app about">
+    <div class="about-head">
+        <img class="portrait" src="images/me.jpg" alt="Jake Steffen" width="132" height="132" />
+        <div>
+            <p class="eyebrow">@Profile.Role · @Profile.Location</p>
+            <h3 class="display">Hi, I'm Jake.</h3>
+            <p class="lead">@Profile.Headline</p>
+        </div>
+    </div>
+
+    <ul class="stats">
+        <li><strong>@Profile.YearsDeveloping(_today)+</strong><span>years building software</span></li>
+        <li><strong>@Profile.YearsInIt(_today)+</strong><span>years in IT</span></li>
+        <li><strong>900+</strong><span>API endpoints in one system</span></li>
+        <li><strong>80+</strong><span>servers tracked in real time</span></li>
+    </ul>
+
+    @foreach (var paragraph in Profile.Summary(_today))
+    {
+        <p>@paragraph</p>
+    }
+
+    <div class="actions">
+        <button type="button" class="btn primary" @onclick="@(() => Desk.Open("resume"))">Read my resume</button>
+        <button type="button" class="btn" @onclick="@(() => Desk.Open("projects"))">See what I've built</button>
+        <button type="button" class="btn" @onclick="@(() => Desk.Open("contact"))">Get in touch</button>
+    </div>
+
+    <p class="muted small-print">
+        This site is a working desktop built with Blazor WebAssembly. Windows drag, resize and stack. The Terminal icon does everything by keyboard.
+    </p>
+</div>
+
+@code {
+    private readonly DateTime _today = DateTime.Today;
+}

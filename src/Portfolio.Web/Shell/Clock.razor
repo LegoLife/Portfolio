@@ -1,0 +1,20 @@
+@implements IDisposable
+
+<time class="clock" datetime="@_now.ToString("s")">
+    <span>@_now.ToString("h:mm tt")</span>
+    <span class="clock-date">@_now.ToString("ddd, MMM d")</span>
+</time>
+
+@code {
+    private DateTime _now = DateTime.Now;
+    private Timer? _timer;
+
+    protected override void OnInitialized() =>
+        _timer = new Timer(_ =>
+        {
+            _now = DateTime.Now;
+            InvokeAsync(StateHasChanged);
+        }, null, TimeSpan.FromSeconds(60 - DateTime.Now.Second), TimeSpan.FromMinutes(1));
+
+    public void Dispose() => _timer?.Dispose();
+}

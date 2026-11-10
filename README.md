@@ -1,44 +1,67 @@
+# Jake Steffen's portfolio
 
-## [Live Page](https://legolife.github.io/Portfolio)
+**Live site: https://legolife.github.io/Portfolio**
 
-# Portfolio Website
+My portfolio is a small desktop that runs in the browser. Open an icon and it launches in a window you can drag, resize, minimise and stack. The resume, the project write-ups and four working demo apps are all programs on that desktop.
 
-Welcome to my Portfolio site repository! This repository showcases my professional journey, technical skills, and project highlights.
+Built with **Blazor WebAssembly (.NET 10)**. There is no UI framework and no chart library: the window manager, data grid and SVG charts are written by hand.
+
+## What's on the desktop
+
+| App | What it is |
+| --- | --- |
+| About Jake | A short introduction |
+| Resume | My resume, with a button to print it or save it as a PDF |
+| Projects | Write-ups of apps I've built |
+| Contact | How to reach me |
+| Terminal | The same content as a command line. Try `help`, `resume` or `open projects` |
+| BrickForge | My 3D brick builder, running live inside a window |
+| Listings | Real estate search with live filters and sorting |
+| Dashboard | An admin dashboard with charts and sortable, searchable, paged grids |
+| DataGen | Generates sample data as JSON, C# or CSV |
+| Invest | An investment growth calculator with a chart |
+| Settings | Three themes, and a few desktop options |
+
+Add an app's name after `#` to link straight to it, for example `https://legolife.github.io/Portfolio/#resume`.
+
+On a phone the icons become a home-screen grid and each app fills the screen.
+
+## Run it
+
+You need the [.NET 10 SDK](https://dotnet.microsoft.com/download).
+
+```sh
+dotnet run --project src/Portfolio.Web     # dev server at http://localhost:5059
+dotnet test                                # unit tests
+dotnet publish src/Portfolio.Web -c Release -o publish
+```
+
+## How it's organised
+
+```
+src/Portfolio.Core      Plain C#: no browser, no Blazor. Everything here is unit-tested.
+  Desktop/              The window manager (open, focus, stack, clamp to the screen) and the app list
+  Content/              Resume and project text. The Resume app, About app and Terminal all read from here
+  Demos/                Logic behind the demo apps: filters, calculator, sample-data generator
+  Terminal/             The command interpreter
+src/Portfolio.Web       The Blazor WebAssembly app
+  Shell/                Desktop, windows, taskbar, launcher, icons
+  Apps/                 One component per app
+  Shared/               Data grid and chart components
+  wwwroot/js/desktop.js Dragging and resizing
+tests/Portfolio.Core.Tests
+```
+
+**C# owns the state and the rules; JavaScript only follows the pointer.** While you drag a window, `desktop.js` moves the element directly so it stays smooth. When you let go, it reports the new position to `WindowManager`, which applies the rules (a window can't be dragged out of reach) and sends back where the window really ends up.
+
+To add an app: add it to `AppCatalog`, write a component in `Apps/`, map the two in `AppRegistry`, and add an icon to `AppIcon.razor`.
+
+## Deployment
+
+Every push to `main` runs the tests and deploys to GitHub Pages (`.github/workflows/pages.yml`). The repository's Pages source must be set to **GitHub Actions** (Settings → Pages).
+
+The workflow rewrites the literal `<base href="/" />` in `wwwroot/index.html` to `/Portfolio/` and fails if that text is missing, so keep it exactly as it is.
 
 ## Contact
 
-Thank you for visiting my portfolio website. If you have any inquiries or would like to discuss potential collaborations or opportunities, please feel free to contact me 
 [jsteffen182@gmail.com](mailto:jsteffen182@gmail.com)
-
-
-
----------------------------------------------
-------
-
-# Portfolio
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

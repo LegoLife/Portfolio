@@ -1,0 +1,124 @@
+<div class="split">
+    <aside class="side filters" aria-label="Filters">
+        <label class="field">
+            <span>Search</span>
+            <input type="search" class="input" placeholder="Street, city or state" @bind="_filter.Search" @bind:event="oninput" />
+        </label>
+
+        <div class="field-row">
+            <label class="field">
+                <span>Min price</span>
+                <select class="input" @bind="_filter.PriceMin">
+                    @foreach (var step in ListingFilter.PriceSteps)
+                    {
+                        <option value="@step">@Fmt.Money(step)</option>
+                    }
+                </select>
+            </label>
+            <label class="field">
+                <span>Max price</span>
+                <select class="input" @bind="_filter.PriceMax">
+                    @foreach (var step in ListingFilter.PriceSteps)
+                    {
+                        <option value="@step">@Fmt.Money(step)</option>
+                    }
+                </select>
+            </label>
+        </div>
+
+        <div class="field-row">
+            <label class="field">
+                <span>Bedrooms</span>
+                <select class="input" @bind="_filter.BedroomsMin">
+                    <option value="0">Any</option>
+                    @for (var n = 1; n <= 5; n++)
+                    {
+                        <option value="@n">@n+</option>
+                    }
+                </select>
+            </label>
+            <label class="field">
+                <span>Bathrooms</span>
+                <select class="input" @bind="_filter.BathroomsMin">
+                    <option value="0">Any</option>
+                    @for (var n = 1; n <= 4; n++)
+                    {
+                        <option value="@n">@n+</option>
+                    }
+                </select>
+            </label>
+        </div>
+
+        <fieldset class="field">
+            <legend>Only show</legend>
+            <label class="check"><input type="checkbox" @bind="_filter.Trending" /> Trending</label>
+            <label class="check"><input type="checkbox" @bind="_filter.PriceDrop" /> Price dropped</label>
+            <label class="check"><input type="checkbox" @bind="_filter.RecentlyAdded" /> New this fortnight</label>
+        </fieldset>
+
+        <label class="field">
+            <span>Sort by</span>
+            <select class="input" @bind="_filter.Sort">
+                <option value="@ListingSort.Newest">Newest first</option>
+                <option value="@ListingSort.PriceLowToHigh">Price: low to high</option>
+                <option value="@ListingSort.PriceHighToLow">Price: high to low</option>
+                <option value="@ListingSort.Largest">Largest first</option>
+            </select>
+        </label>
+
+        <div class="actions">
+            <button type="button" class="btn small" disabled="@_filter.IsDefault" @onclick="_filter.Reset">Clear filters</button>
+            <button type="button" class="btn small" @onclick="NewData">New listings</button>
+        </div>
+    </aside>
+
+    <div class="main listings">
+        @{ var results = _filter.Apply(_listings); }
+        <p class="result-count"><strong>@results.Count</strong> of @_listings.Count homes</p>
+
+        @if (results.Count == 0)
+        {
+            <div class="empty">
+                <p>No homes match those filters.</p>
+                <button type="button" class="btn small" @onclick="_filter.Reset">Clear filters</button>
+            </div>
+        }
+
+        <div class="home-grid">
+            @foreach (var home in results)
+            {
+                <article class="home" @key="home.Id">
+                    <div class="home-photo">
+                        <img src="@home.Photo" alt="" loading="lazy" />
+                        <div class="home-tags">
+                            @if (home.Trending) { <span class="tag accent-red">Trending</span> }
+                            @if (home.PriceDrop) { <span class="tag accent-yellow">Price drop</span> }
+                            @if (home.IsNew) { <span class="tag accent-green">New</span> }
+                        </div>
+                    </div>
+                    <div class="home-body">
+                        <p class="home-price">@Fmt.Money(home.Price)</p>
+                        <h4>@home.Street</h4>
+                        <p class="muted">@home.City, @home.State @home.Zip</p>
+                        <p class="home-facts">
+                            <span><strong>@home.Bedrooms</strong> bd</span>
+                            <span><strong>@home.Bathrooms</strong> ba</span>
+                            <span><strong>@Fmt.Number(home.SquareFeet)</strong> sq ft</span>
+                        </p>
+                        <p class="muted home-date">Listed @Fmt.Date(home.DatePosted) · @home.DaysOnSite(_today) days on site</p>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private readonly DateTime _today = DateTime.Today;
+    private readonly ListingFilter _filter = new();
+    private List<Listing> _listings = [];
+
+    protected override void OnInitialized() => NewData();
+
+    private void NewData() => _listings = ListingFactory.Create(new FakeData(today: _today));
+}

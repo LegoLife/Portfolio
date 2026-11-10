@@ -1,0 +1,118 @@
+@inject DesktopService Desk
+
+<div class="split">
+    <aside class="side" aria-label="Fields">
+        <h4 class="section-title">Fields</h4>
+        <ul class="field-list">
+            @foreach (var field in _fields)
+            {
+                <li>
+                    <span><strong>@field.Name</strong><span class="muted">@field.Type</span></span>
+                    <button type="button" class="win-btn" aria-label="Remove @field.Name" @onclick="() => Remove(field)">
+                        <AppIcon Name="close" Size="12" />
+                    </button>
+                </li>
+            }
+            @if (_fields.Count == 0)
+            {
+                <li class="muted">No fields yet. Add one below.</li>
+            }
+        </ul>
+
+        <form @onsubmit="Add" @onsubmit:preventDefault="true">
+            <label class="field">
+                <span>Field name</span>
+                <input class="input" placeholder="for example: pet" @bind="_newName" @bind:event="oninput" />
+            </label>
+            <label class="field">
+                <span>Type of data</span>
+                <select class="input" @bind="_newType">
+                    @foreach (var type in DataGenerator.Types)
+                    {
+                        <option value="@type">@type</option>
+                    }
+                </select>
+            </label>
+            @if (_error is not null)
+            {
+                <p class="error" role="alert">@_error</p>
+            }
+            <button type="submit" class="btn small">Add field</button>
+        </form>
+    </aside>
+
+    <div class="main datagen">
+        <div class="datagen-bar">
+            <label class="field inline">
+                <span>Rows</span>
+                <input class="input narrow" type="number" min="1" max="@DataGenerator.MaxRows" @bind="_count" />
+            </label>
+            <div class="segmented" role="radiogroup" aria-label="Output format">
+                @foreach (var format in DataGenerator.Formats)
+                {
+                    <button type="button" role="radio" aria-checked="@(_format == format ? "true" : "false")"
+                            class="@(_format == format ? "is-on" : "")" @onclick="() => SetFormat(format)">@format</button>
+                }
+            </div>
+            <button type="button" class="btn primary small" disabled="@(_fields.Count == 0)" @onclick="Generate">Generate</button>
+            <button type="button" class="btn small" disabled="@(_output.Length == 0)" @onclick="Copy">@(_copied ? "Copied" : "Copy")</button>
+            <button type="button" class="btn small" disabled="@(_output.Length == 0)"
+                    @onclick="() => Desk.DownloadAsync(DataGenerator.FileName(_format), _output)">Download</button>
+        </div>
+        <pre class="code" tabindex="0" aria-label="Generated output">@(_output.Length > 0 ? _output : "Add some fields, then press Generate.")</pre>
+    </div>
+</div>
+
+@code {
+    private readonly List<DataField> _fields = [new("firstName", "firstName"), new("lastName", "lastName"), new("age", "age"), new("city", "city")];
+    private List<DataRow> _rows = [];
+    private string _newName = "";
+    private string _newType = DataGenerator.Types[0];
+    private string? _error;
+    private int _count = 10;
+    private string _format = DataGenerator.Formats[0];
+    private string _output = "";
+    private bool _copied;
+
+    protected override void OnInitialized() => Generate();
+
+    private void Add()
+    {
+        _error = DataGenerator.Validate(_fields, _newName, _newType);
+        if (_error is not null) return;
+        _fields.Add(new(_newName.Trim(), _newType));
+        _newName = "";
+        Generate();
+    }
+
+    private void Remove(DataField field)
+    {
+        _fields.Remove(field);
+        Generate();
+    }
+
+    private void Generate()
+    {
+        _count = Math.Clamp(_count, 1, DataGenerator.MaxRows);
+        _rows = _fields.Count == 0 ? [] : DataGenerator.Rows(_fields, _count, new FakeData());
+        Render();
+    }
+
+    /// <summary>Changing the format shows the same rows another way, without drawing new values.</summary>
+    private void SetFormat(string format)
+    {
+        _format = format;
+        Render();
+    }
+
+    private void Render() => _output = _rows.Count == 0 ? "" : DataGenerator.Format(_format, _fields, _rows);
+
+    private async Task Copy()
+    {
+        await Desk.CopyAsync(_output);
+        _copied = true;
+        StateHasChanged();
+        await Task.Delay(1500);
+        _copied = false;
+    }
+}

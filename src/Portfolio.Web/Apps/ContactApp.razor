@@ -1,0 +1,37 @@
+@inject DesktopService Desk
+
+<div class="app contact">
+    <h3 class="display">Say hello</h3>
+    <p class="lead">Email is the fastest way to reach me. I read everything.</p>
+
+    <div class="contact-card">
+        <span class="eyebrow">Email</span>
+        <a class="contact-value" href="mailto:@Profile.Email">@Profile.Email</a>
+        <div class="actions">
+            <a class="btn primary" href="mailto:@Profile.Email?subject=Hello%20from%20your%20portfolio">Write to me</a>
+            <button type="button" class="btn" @onclick="Copy">@(_copied ? "Copied" : "Copy address")</button>
+        </div>
+    </div>
+
+    <div class="contact-card">
+        <span class="eyebrow">GitHub</span>
+        <a class="contact-value" href="@Profile.GitHubUrl" target="_blank" rel="noopener">github.com/@Profile.GitHubUser</a>
+    </div>
+
+    <div class="actions">
+        <button type="button" class="btn" @onclick="@(() => Desk.Open("resume"))">Open my resume</button>
+    </div>
+</div>
+
+@code {
+    private bool _copied;
+
+    private async Task Copy()
+    {
+        await Desk.CopyAsync(Profile.Email);
+        _copied = true;
+        StateHasChanged();
+        await Task.Delay(1800);
+        _copied = false;
+    }
+}

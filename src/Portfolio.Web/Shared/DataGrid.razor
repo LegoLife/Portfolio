@@ -1,0 +1,113 @@
+@typeparam TItem
+
+@* A sortable, searchable, paged table. *@
+<div class="grid">
+    <div class="grid-tools">
+        <input type="search" class="input" placeholder="Search @Noun" aria-label="Search @Noun"
+               value="@_search" @oninput="OnSearch" />
+        <span class="muted">@_rows.Count.ToString("N0") of @Items.Count.ToString("N0") @Noun</span>
+    </div>
+
+    <div class="grid-scroll">
+        <table>
+            <thead>
+                <tr>
+                    @for (var i = 0; i < Columns.Count; i++)
+                    {
+                        var index = i;
+                        var column = Columns[i];
+                        <th class="@(column.Numeric ? "num" : "")" aria-sort="@AriaSort(index)">
+                            <button type="button" @onclick="() => SortBy(index)">
+                                @column.Title
+                                <span class="sort-mark">@(_sortColumn == index ? (_descending ? "▼" : "▲") : "")</span>
+                            </button>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in _rows.Skip(_page * PageSize).Take(PageSize))
+                {
+                    <tr>
+                        @foreach (var column in Columns)
+                        {
+                            <td class="@(column.Numeric ? "num" : "")">
+                                @if (column.Template is not null)
+                                {
+                                    @column.Template(item)
+                                }
+                                else
+                                {
+                                    @column.Display(item)
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+                @if (_rows.Count == 0)
+                {
+                    <tr><td colspan="@Columns.Count" class="grid-empty">Nothing matches "@_search".</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="grid-pager">
+        <button type="button" class="btn small" disabled="@(_page == 0)" @onclick="() => _page--">Previous</button>
+        <span>Page @(_page + 1) of @PageCount</span>
+        <button type="button" class="btn small" disabled="@(_page >= PageCount - 1)" @onclick="() => _page++">Next</button>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<TItem> Items { get; set; } = [];
+    [Parameter, EditorRequired] public IReadOnlyList<GridColumn<TItem>> Columns { get; set; } = [];
+    [Parameter] public int PageSize { get; set; } = 10;
+    [Parameter] public string Noun { get; set; } = "rows";
+
+    private IReadOnlyList<TItem>? _source;
+    private List<TItem> _rows = [];
+    private string _search = "";
+    private int _sortColumn = -1;
+    private bool _descending;
+    private int _page;
+
+    private int PageCount => Math.Max(1, (int)Math.Ceiling(_rows.Count / (double)PageSize));
+
+    protected override void OnParametersSet()
+    {
+        if (ReferenceEquals(_source, Items)) return;
+        _source = Items;
+        Rebuild();
+    }
+
+    private void OnSearch(ChangeEventArgs e)
+    {
+        _search = e.Value?.ToString() ?? "";
+        Rebuild();
+    }
+
+    private void SortBy(int column)
+    {
+        _descending = _sortColumn == column && !_descending;
+        _sortColumn = column;
+        Rebuild();
+    }
+
+    private void Rebuild()
+    {
+        IEnumerable<TItem> rows = Items;
+        var search = _search.Trim();
+        if (search.Length > 0)
+            rows = rows.Where(item => Columns.Any(c => c.Display(item).Contains(search, StringComparison.OrdinalIgnoreCase)));
+        if (_sortColumn >= 0)
+        {
+            var key = Columns[_sortColumn].Value;
+            rows = _descending ? rows.OrderByDescending(key) : rows.OrderBy(key);
+        }
+        _rows = rows.ToList();
+        _page = 0;
+    }
+
+    private string AriaSort(int column) => _sortColumn != column ? "none" : _descending ? "descending" : "ascending";
+}

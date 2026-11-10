@@ -1,0 +1,169 @@
+@inject HttpClient Http
+
+@if (_user is null)
+{
+    <div class="login">
+        <form class="login-card" @onsubmit="SignIn" @onsubmit:preventDefault="true">
+            <h3 class="display">Dashboard</h3>
+            <p class="muted">This is a demo. Any name and password will work.</p>
+            <label class="field">
+                <span>Username</span>
+                <input class="input" @bind="_name" autocomplete="off" />
+            </label>
+            <label class="field">
+                <span>Password</span>
+                <input class="input" type="password" value="password" autocomplete="off" />
+            </label>
+            <button type="submit" class="btn primary">Sign in</button>
+        </form>
+    </div>
+}
+else
+{
+    <div class="split dash">
+        <aside class="side dash-nav">
+            <p class="dash-hello">Hello, <strong>@_user</strong></p>
+            <nav aria-label="Dashboard sections">
+                @foreach (var view in Views)
+                {
+                    <button type="button" class="nav-item @(_view == view ? "is-on" : "")" @onclick="() => _view = view">@view</button>
+                }
+            </nav>
+            <button type="button" class="btn small" @onclick="() => _user = null">Sign out</button>
+        </aside>
+
+        <div class="main">
+            @switch (_view)
+            {
+                case "Overview":
+                    <ul class="stats">
+                        <li><strong>@Fmt.CompactMoney(_orders.Sum(o => (double)o.Total))</strong><span>order value</span></li>
+                        <li><strong>@_orders.Count.ToString("N0")</strong><span>orders</span></li>
+                        <li><strong>@_products.Count</strong><span>products</span></li>
+                        <li><strong>@_users.Count</strong><span>users</span></li>
+                    </ul>
+                    <h4 class="section-title">Sales and profit, last 8 days</h4>
+                    <Chart Title="Sales and profit per day" Bars="true" Labels="_dayLabels" Series="_salesSeries" Format="Fmt.CompactMoney" />
+                    <h4 class="section-title">Orders per day</h4>
+                    <Chart Title="Orders per day" Labels="_dayLabels" Series="_orderSeries" />
+                    break;
+
+                case "Users":
+                    <DataGrid TItem="DashUser" Items="_users" Columns="UserColumns" Noun="users" />
+                    break;
+
+                case "Products":
+                    <DataGrid TItem="DashProduct" Items="_products" Columns="_productColumns" Noun="products" PageSize="8" />
+                    break;
+
+                case "Orders":
+                    <DataGrid TItem="Order" Items="_orders" Columns="OrderColumns" Noun="orders" />
+                    break;
+            }
+
+            @if (_view is "Users" or "Products")
+            {
+                <p class="muted small-print">
+                    @(_live ? "Loaded from the public dummyjson.com API." : "The public API was unreachable, so this is generated sample data.")
+                </p>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private static readonly string[] Views = ["Overview", "Users", "Products", "Orders"];
+
+    private static readonly GridColumn<DashUser>[] UserColumns =
+    [
+        new("Id", u => u.Id, Numeric: true),
+        new("First name", u => u.FirstName),
+        new("Last name", u => u.LastName),
+        new("Email", u => u.Email),
+        new("City", u => u.City),
+        new("Born", u => u.BirthDate, u => u.BirthDate == default ? "" : Fmt.Date(u.BirthDate)),
+    ];
+
+    private static readonly GridColumn<Order>[] OrderColumns =
+    [
+        new("First name", o => o.FirstName),
+        new("Last name", o => o.LastName),
+        new("Order number", o => o.OrderNumber),
+        new("Quantity", o => o.Quantity, o => o.Quantity.ToString("N0"), Numeric: true),
+        new("Price", o => o.UnitPrice, o => Fmt.Money(o.UnitPrice, 2), Numeric: true),
+        new("Total", o => o.Total, o => Fmt.Money(o.Total, 2), Numeric: true),
+    ];
+
+    private GridColumn<DashProduct>[] _productColumns = [];
+
+    private readonly FakeData _fake = new();
+    private string _name = "admin";
+    private string? _user;
+    private string _view = "Overview";
+    private bool _live;
+
+    private List<Order> _orders = [];
+    private List<DashUser> _users = [];
+    private List<DashProduct> _products = [];
+    private string[] _dayLabels = [];
+    private ChartSeries[] _salesSeries = [];
+    private ChartSeries[] _orderSeries = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _productColumns =
+        [
+            new("Id", p => p.Id, Numeric: true),
+            new("", p => p.Title, Template: Thumbnail),
+            new("Name", p => p.Title),
+            new("Brand", p => p.Brand),
+            new("Category", p => p.Category),
+            new("Price", p => p.Price, p => Fmt.Money(p.Price, 2), Numeric: true),
+            new("In stock", p => p.Stock, Numeric: true),
+        ];
+
+        _orders = DashboardData.Orders(_fake);
+        var week = DashboardData.Week(_fake);
+        _dayLabels = week.Select(d => Fmt.ShortDate(d.Day)).ToArray();
+        _salesSeries =
+        [
+            new("Sales", "var(--blue)", week.Select(d => d.Sales * 1000.0).ToList()),
+            new("Profit", "var(--green)", week.Select(d => d.Profit * 1000.0).ToList()),
+        ];
+        _orderSeries = [new("Orders", "var(--purple)", week.Select(d => (double)d.Orders).ToList())];
+
+        // Start with generated data so the dashboard is usable at once, then swap in the API's data if it answers.
+        _users = DashboardData.Users(_fake);
+        _products = DashboardData.Products(_fake);
+        try
+        {
+            var users = Http.GetFromJsonAsync("https://dummyjson.com/users?limit=40", DummyJsonContext.Default.ApiUserPage);
+            var products = Http.GetFromJsonAsync("https://dummyjson.com/products?limit=40", DummyJsonContext.Default.ApiProductPage);
+            await Task.WhenAll(users, products);
+            if (users.Result?.Users is { Count: > 0 } u && products.Result?.Products is { Count: > 0 } p)
+            {
+                _users = u.Select(x => x.ToUser()).ToList();
+                _products = p.Select(x => x.ToProduct()).ToList();
+                _live = true;
+            }
+        }
+        catch (Exception)
+        {
+            // Offline, blocked or changed API: the generated data stays.
+        }
+    }
+
+    private void SignIn() => _user = string.IsNullOrWhiteSpace(_name) ? "admin" : _name.Trim();
+
+    private static RenderFragment<DashProduct> Thumbnail => product =>
+        @<span class="thumb">
+            @if (product.Thumbnail is not null)
+            {
+                <img src="@product.Thumbnail" alt="" loading="lazy" width="40" height="40" />
+            }
+            else
+            {
+                <i aria-hidden="true">@product.Title[..1]</i>
+            }
+        </span>;
+}
