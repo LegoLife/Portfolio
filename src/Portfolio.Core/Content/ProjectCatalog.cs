@@ -39,6 +39,7 @@ public static class ProjectCatalog
                 "Migrated 106 pages from a previous notes tool with a custom importer",
             ],
             "purple", "images/projects/jnotes.jpg",
+            LiveUrl: "https://legolife.github.io/JNotes/",
             RepoUrl: "https://github.com/LegoLife/JNotes"),
 
         new("jtools", "JTools", "Three everyday developer tools in one Windows tray app",
@@ -96,6 +97,9 @@ public static class ProjectCatalog
         new("brickforge", "BrickForge", "3D brick building in the browser",
             "Snap bricks, plates and tiles onto a baseplate, then copy, paste and save whole structures. Opens on its own site.",
             ["Blazor", "Three.js", "xUnit"], [], "orange", LiveUrl: "https://legolife.github.io/BrickForge/"),
+        new("jnotes", "JNotes", "A notes app with Claude built in",
+            "The real editor, folders and full-text search running in the browser on sample notes. Inline /ai gives a stand-in reply here.",
+            ["Blazor WASM", "Tiptap", "SQLite FTS5"], [], "purple", LiveUrl: "https://legolife.github.io/JNotes/"),
         new("giftplanner", "GiftPlanner", "Kids' gift lists, with a view per relative",
             "The real app running in the browser on made-up data. Try the giver view to see what a relative's link shows.",
             ["Blazor WASM", "EF Core", "SQLite"], [], "red", LiveUrl: "https://legolife.github.io/GiftPlanner/"),
