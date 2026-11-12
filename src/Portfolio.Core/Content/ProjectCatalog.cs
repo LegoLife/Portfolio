@@ -85,6 +85,7 @@ public static class ProjectCatalog
                 "Cookie login and a containerised deploy",
             ],
             "yellow", "images/projects/menuplanner.jpg",
+            LiveUrl: "https://legolife.github.io/MenuPlanner/",
             RepoUrl: "https://github.com/LegoLife/MenuPlanner"),
 
     ];
@@ -98,6 +99,9 @@ public static class ProjectCatalog
         new("giftplanner", "GiftPlanner", "Kids' gift lists, with a view per relative",
             "The real app running in the browser on made-up data. Try the giver view to see what a relative's link shows.",
             ["Blazor WASM", "EF Core", "SQLite"], [], "red", LiveUrl: "https://legolife.github.io/GiftPlanner/"),
+        new("menuplanner", "MenuPlanner", "A week of dinners in one click",
+            "The real app running in the browser with sample dishes. Generate a plan, lock the nights you like, re-roll the rest.",
+            ["Blazor WASM", "EF Core", "SQLite"], [], "yellow", LiveUrl: "https://legolife.github.io/MenuPlanner/"),
         new("listings", "Real estate search", "Live filters over generated listings",
             "Filter generated listings by price, bedrooms, bathrooms, keyword and tags, and sort the results.",
             ["Blazor", "C#", "xUnit"], [], "green"),
