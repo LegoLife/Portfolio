@@ -388,3 +388,4 @@ select.input { padding: 4px 8px; }
 
 .text-link { color: var(--accent); text-decoration: none; font-family: "JetBrains Mono", monospace; font-size: .85rem; }
 .text-link:hover { text-decoration: underline; }
+.work-links { display: flex; gap: 20px; flex-wrap: wrap; }

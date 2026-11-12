@@ -75,6 +75,7 @@ public static class ProjectCatalog
                 "Nightly backups",
             ],
             "red", "images/projects/giftplanner.jpg",
+            LiveUrl: "https://legolife.github.io/GiftPlanner/",
             RepoUrl: "https://github.com/LegoLife/GiftPlanner"),
         new("menuplanner", "MenuPlanner", "Generates the family menu so nobody has to ask what's for dinner",
             "Builds the household menu. It runs in Docker on a Raspberry Pi behind a login.",
@@ -88,12 +89,15 @@ public static class ProjectCatalog
 
     ];
 
-    /// <summary>Small working apps. Most run right here in the page at #/demos/{id}; one with a LiveUrl opens its own site.</summary>
+    /// <summary>Small working apps. Most run right here in the page at #/demos/{id}; ones with a LiveUrl open their own site.</summary>
     public static readonly IReadOnlyList<Project> Demos =
     [
         new("brickforge", "BrickForge", "3D brick building in the browser",
             "Snap bricks, plates and tiles onto a baseplate, then copy, paste and save whole structures. Opens on its own site.",
             ["Blazor", "Three.js", "xUnit"], [], "orange", LiveUrl: "https://legolife.github.io/BrickForge/"),
+        new("giftplanner", "GiftPlanner", "Kids' gift lists, with a view per relative",
+            "The real app running in the browser on made-up data. Try the giver view to see what a relative's link shows.",
+            ["Blazor WASM", "EF Core", "SQLite"], [], "red", LiveUrl: "https://legolife.github.io/GiftPlanner/"),
         new("listings", "Real estate search", "Live filters over generated listings",
             "Filter generated listings by price, bedrooms, bathrooms, keyword and tags, and sort the results.",
             ["Blazor", "C#", "xUnit"], [], "green"),
