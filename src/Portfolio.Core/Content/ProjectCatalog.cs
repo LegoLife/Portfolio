@@ -38,7 +38,8 @@ public static class ProjectCatalog
                 "Full-text search with a Ctrl+K switcher, templates, attachments and drag-to-reorder folders",
                 "Migrated 106 pages from a previous notes tool with a custom importer",
             ],
-            "purple", "images/projects/jnotes.jpg"),
+            "purple", "images/projects/jnotes.jpg",
+            RepoUrl: "https://github.com/LegoLife/JNotes"),
 
         new("jtools", "JTools", "Three everyday developer tools in one Windows tray app",
             "A live log viewer that tails several files in tabs and highlights lines such as ERROR and WARN, a text expander that works in any app, and a .NET regex tester. " +
@@ -49,7 +50,8 @@ public static class ProjectCatalog
                 "System-wide text expansion from short abbreviations",
                 "Regex tester showing matches and capture groups as you type",
             ],
-            "blue", "images/projects/jtools.png"),
+            "blue", "images/projects/jtools.png",
+            RepoUrl: "https://github.com/LegoLife/JTools"),
 
         new("buywindow", "BuyWindow", "Checks whether timing a monthly investment actually beats not timing it",
             "Keeps a watchlist of US stocks and ETFs. For each one it says when to buy this month, then backtests that signal against simply buying on the first trading day and gives an honest verdict. " +
@@ -60,7 +62,8 @@ public static class ProjectCatalog
                 "Scheduled price updates from a market data API",
                 "One-command ARM64 deploy to a home server, with rollback",
             ],
-            "green", "images/projects/buywindow.jpg"),
+            "green", "images/projects/buywindow.jpg",
+            RepoUrl: "https://github.com/LegoLife/BuyWindow"),
 
         new("giftplanner", "GiftPlanner", "Kids' gift lists where each relative sees only their part",
             "One master list per child, with each gift assigned to a group of givers. Each group gets a private share link and sees only its own gifts, with no account needed. " +
@@ -71,7 +74,8 @@ public static class ProjectCatalog
                 "Product lookup from store pages using structured data",
                 "Nightly backups",
             ],
-            "red", "images/projects/giftplanner.jpg"),
+            "red", "images/projects/giftplanner.jpg",
+            RepoUrl: "https://github.com/LegoLife/GiftPlanner"),
         new("menuplanner", "MenuPlanner", "Generates the family menu so nobody has to ask what's for dinner",
             "Builds the household menu. It runs in Docker on a Raspberry Pi behind a login.",
             ["Blazor Server", ".NET 10", "MudBlazor", "EF Core", "SQLite", "Docker"],
@@ -79,7 +83,8 @@ public static class ProjectCatalog
                 "Small, focused and quick on low-power hardware",
                 "Cookie login and a containerised deploy",
             ],
-            "yellow", "images/projects/menuplanner.jpg"),
+            "yellow", "images/projects/menuplanner.jpg",
+            RepoUrl: "https://github.com/LegoLife/MenuPlanner"),
 
     ];
 

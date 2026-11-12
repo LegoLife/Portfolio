@@ -385,3 +385,6 @@ select.input { padding: 4px 8px; }
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+.text-link { color: var(--accent); text-decoration: none; font-family: "JetBrains Mono", monospace; font-size: .85rem; }
+.text-link:hover { text-decoration: underline; }
