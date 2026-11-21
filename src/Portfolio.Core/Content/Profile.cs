@@ -56,7 +56,7 @@ public static class Profile
     [
         "C# / .NET (Framework to .NET 10)", "ASP.NET Core Web API", "Angular / TypeScript", "Blazor", "SQL Server / T-SQL",
         "Entity Framework Core", "REST & SFTP integrations", "Windows services & agents", "PowerShell", "SSH / Linux",
-        "NUnit / Moq / xUnit", "Azure DevOps CI/CD", "WiX installers", "Serilog", "NERC CIP compliance",
+        "NUnit / Moq / xUnit", "Serilog", "NERC CIP compliance",
     ];
 
     public static readonly IReadOnlyList<Job> Jobs =
@@ -67,7 +67,7 @@ public static class Profile
             "Built and maintain 40+ C# integrations for Power Marketing that load MISO market, settlement and forecast data plus ICE, NGI, OATI and weather APIs into SQL Server, giving traders and accountants accurate data every day.",
             "Rebuilt a legacy desktop system-monitoring tool as a Blazor web app with LMP charts and Excel/CSV exports, and built a Blazor engineering design dashboard with role-based permissions, session tracking and comments.",
             "Automated back-office work: a Maximo-to-Great Plains file mover with SFTP transfer, a nightly AX auto-index sync, and a UKG-to-Docebo HR sync that keeps the learning platform's users current.",
-            "Ship with Azure DevOps, unit tests (NUnit, Moq, FluentAssertions) and WiX MSI installers; kept long-lived apps current by moving them from .NET Framework to modern .NET.",
+            "Back code with unit tests (NUnit, Moq, FluentAssertions); kept long-lived apps current by moving them from .NET Framework to modern .NET.",
             "Work directly with end users to gather requirements, then design, deliver, train and support the result.",
         ]),
         new("System Administrator", "Hoosier Energy", "Spencer, IN", "Mar 2015 – Apr 2018",
